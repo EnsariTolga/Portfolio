@@ -3,8 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research Website</title>
-    <link rel="stylesheet" href="publicationStyle.css">
+    <title>Publications – Tolga Ensari</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --primary: #1a3a5c;
+            --accent: #2e7d9f;
+            --accent-light: #e8f4f8;
+            --text: #222;
+            --text-muted: #555;
+            --border: #dce3ea;
+            --bg: #f5f7fa;
+            --card-bg: #ffffff;
+            --nav-bg: #1a3a5c;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ── NAV ── */
+        header {
+            background: var(--nav-bg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,.25);
+        }
+        nav {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            height: 58px;
+        }
+        .logo a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: .3px;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,.85);
+            text-decoration: none;
+            font-size: .82rem;
+            padding: 6px 10px;
+            border-radius: 4px;
+            transition: background .2s, color .2s;
+        }
+        .nav-links a:hover,
+        .nav-links a.active { background: rgba(255,255,255,.15); color: #fff; }
+
+        /* ── HERO STRIP ── */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: #fff;
+            text-align: center;
+            padding: 52px 24px 44px;
+        }
+        .hero h1 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+        .hero p { font-size: 1rem; opacity: .85; }
+
+        /* ── STATS BAR ── */
+        .stats-bar {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            flex-wrap: wrap;
+        }
+        .stat {
+            padding: 18px 36px;
+            text-align: center;
+            border-right: 1px solid var(--border);
+        }
+        .stat:last-child { border-right: none; }
+        .stat-number { font-size: 1.7rem; font-weight: 700; color: var(--accent); }
+        .stat-label { font-size: .75rem; text-transform: uppercase; letter-spacing: .6px; color: var(--text-muted); }
+
+        /* ── LAYOUT ── */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        /* ── SECTION HEADINGS ── */
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 44px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+        }
+        .section-title i { color: var(--accent); font-size: 1.1rem; }
+
+        /* ── PUBLICATION CARDS ── */
+        .pub-list { display: flex; flex-direction: column; gap: 14px; }
+
+        .pub-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 18px 22px;
+            display: flex;
+            gap: 18px;
+            transition: box-shadow .2s, border-left-color .2s;
+        }
+        .pub-card:hover {
+            box-shadow: 0 4px 16px rgba(46,125,159,.12);
+            border-left-color: var(--primary);
+        }
+
+        .pub-number {
+            min-width: 32px;
+            height: 32px;
+            background: var(--accent-light);
+            color: var(--accent);
+            font-weight: 700;
+            font-size: .82rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .pub-content { flex: 1; }
+        .pub-title {
+            font-weight: 600;
+            font-size: .95rem;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+        .pub-authors {
+            font-size: .83rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        .pub-venue {
+            font-size: .83rem;
+            color: var(--text);
+        }
+        .pub-venue em { font-style: italic; color: var(--accent); }
+
+        .badge {
+            display: inline-block;
+            font-size: .68rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        .badge-invited { background: #fff3cd; color: #856404; }
+        .badge-ieee    { background: #d4edda; color: #155724; }
+        .badge-recent  { background: #cfe2ff; color: #084298; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 1.5rem; }
+            .stat { padding: 14px 20px; }
+            .pub-card { flex-direction: column; gap: 8px; }
+        }
+    </style>
 </head>
 <body>
 
@@ -14,7 +198,7 @@
         <ul class="nav-links">
             <li><a href="home.html">Home</a></li>
             <li><a href="news.html">News</a></li>
-            <li><a href="publications.html">Publications</a></li>
+            <li><a href="publications.html" class="active">Publications</a></li>
             <li><a href="projects.html">Projects</a></li>
             <li><a href="people.html">People/Research Group</a></li>
             <li><a href="activities.html">Activities</a></li>
@@ -25,136 +209,965 @@
     </nav>
 </header>
 
-<main>
-    <section class="left-section">
-        <div class="profile">
-            <img src="Dr.ensari.jpeg" alt="Your Photo">
-            <div class="profile-info">
-                <p class="name" style="display: inline-block; text-align: left;">Tolga Ensari, PhD</p>
-                <p class="designation">Assistant Professor of Computer Science</p>
-                <p>Arkansas Tech University</p>
-                <p>Russellville, AR</p></br>
-                <div style ="text-align: center;">
-                    <div class="contact-info" style="display: inline-block; text-align: left;">
-                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-                        <p><i class="fa fa-phone"></i> +1-479-356-2161</p></br>
-                        <p><i class="fa fa-envelope"></i> <a href="mailto:tensari@atu.edu">tensari@atu.edu</a></p></br>
-                        <p><i class="fas fa-user-graduate"></i> <a href="https://scholar.google.com/citations?user=o-TS7FsAAAAJ&hl=en&oi=ao">Google Scholar</a></p></br>
-                        <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/tolga-ensari-814ba527">LinkedIn</a></p></br>
-                        <p><i class="fab fa-orcid"></i> <a href="https://orcid.org/0000-0003-0896-3058">ORCID</a></p></br>
-                        <p><i class="fab fa-github"></i> <a href="https://ensaritolga.github.io/Portfolio/">GitHub</a></p></br></br>
-                        
-                    </div>
-                    <div style="text-align: center;">
-                        
-                        <p style="margin-left: -50px;">
-                            Address: <br>
-                            Arkansas Tech University<br>
-                            Dept. of Engineering and Computing Sciences<br>
-                            1811 N Boulder Ave, Corley Hall, Room 241<br>
-                            Russellville, Arkansas 72801, USA</p>
-                    </div>
-                </div>
+<div class="hero">
+    <h1>Academic Publications</h1>
+    <p>Tolga Ensari, PhD &nbsp;·&nbsp; Arkansas Tech University</p>
+</div>
+
+<div class="stats-bar">
+    <div class="stat"><div class="stat-number">27</div><div class="stat-label">Journal Articles</div></div>
+    <div class="stat"><div class="stat-number">78</div><div class="stat-label">Conference Papers</div></div>
+    <div class="stat"><div class="stat-number">105</div><div class="stat-label">Total Publications</div></div>
+    <div class="stat"><div class="stat-number">2003–2025</div><div class="stat-label">Years Active</div></div>
+</div>
+
+<div class="container">
+
+    <!-- ═══════════════════════════════════════════
+         A. JOURNAL PUBLICATIONS
+    ════════════════════════════════════════════ -->
+    <div class="section-title"><i class="fas fa-book-open"></i> A. Journal Publications</div>
+    <div class="pub-list">
+
+        <div class="pub-card">
+            <div class="pub-number">1</div>
+            <div class="pub-content">
+                <div class="pub-title">Proposed Mixed Modified Inception and Self Attention U-Net for Medical Image Segmentation: MMIAU-Net</div>
+                <div class="pub-authors">M. N. Akcaman, T. Ensari, and A. Sertbas</div>
+                <div class="pub-venue"><em>The Computer Science and Engineering Journal</em>, issue 18, no. 1, pp. 19–30, 2025 <span class="badge badge-recent">2025</span></div>
             </div>
-            
         </div>
-    </section>
-    <section class="right-section">
-        <h2>Academic Publications:</h2>
-        <h3>A. Journal Publications:</h3><br>
-        <ol>
-            <li>A. Gasi, M. Dagtekin, and T. Ensari, "Ontology Supported Semantic Based Image Retrieval," <em>Research Square</em>, 2023 [In press].</li>
-            <li>Z. Cavdar, T. Ensari, L. T. Sener, A. Sertbas, "MicroRNA Target Prediction by Machine Learning-based Microarray Technique: Research Study," <em>European Journal of Science and Technology</em>, Issue 44, pp 39-45, 2022.</li>
-            <li>B. Asiroglu, S. Senan, P. Gorgel, M. E. Isenkul, T. Ensari, A. Sezen, M. Dagtekin, A Deep Learning-based Object Detection System for User Interface Code Generation, <em>International Congress on Human-Computer Interaction, Optimization and Robotic Applications</em>, Ankara, Turkey, June 9-11, 2022.</li>
-            <li>E. A. Bayrak, P. Kirci, T. Ensari, E. Seven, and M. Dagtekin, Diagnosing Breast Cancer Using Machine Learning Methods, <em>Journal of Intelligent Systems: Theory and Applications</em>, vol. 5, no. 1, pp. 35-41, 2022.</li>
-            <li>M. Amrane, S. Oukid, and T. Ensari, Molecules Generation to Inhibit Covid-19 Disease Using Encoder-Decoder LSTM Architecture and PCA Properties, <em>Journal of Mechanics in Medicine and Biology</em>, vol. 23, no. 1, 2023.</li>
-            <li>E. Yildiz, T. Ensari, L. T. Sener, J. Zurada, Combined Gaussian Mixture Model to Analysis Flow Cytometry Data, <em>Journal of Cytometry: Part A</em> [Under review].</li>
-            <li>O. S. Sonmez, M. Dagtekin, and T. Ensari, Gene Expression Data Classification Using Genetic Algorithm based Feature Selection, <em>Turkish Journal of Electrical Engineering and Computer Sciences</em>, vol. 29, no. 7, 2021.</li>
-            <li>A. Gasi, T. Ensari, and M. Dagtekin, Semantic-based Image Retrieval-A Survey, <em>Journal of Acta-Infologica/Istanbul University</em>, vol. 5, no. 2, 2021.</li>
-            <li>M. Kazanc, T. Ensari, and M. Dagtekin, Filtering Videos by Classification with Deep Learning, <em>IEEE International Congress on Human- Computer Interaction, European Journal of Science and Technology</em>, <em>European Journal of Science and Technology</em>, vol. 26, pp 338-342, Optimization, and Robotics Applications, Turkey, June, 2021.</li>
-            <li>M. Dağtekin, E. Seven, A. E. Balsever, E. N. Var, L. T. Şener, A. N. Alçalar, B. Ensari, T. Ensari, “Post-Traumatic Stress Disorder (PTSD) Management: A Machine Learning Approach”, <em>European Journal of Science & Technology</em>, Special Issue, pp. 284-288, August 2020.</li>
-            <li>T. Ensari, D. C. Armah, A. E. Balsever, M. Dağtekin, “Convolutional Neural Networks for Image-Based Digital Plant Phenotyping”, <em>European Journal of Science & Technology</em>, Special Issue, pp. 338-342, August 2020.</li>
-            <li>Ö. Aktaş, E. Doğan, T. Ensari, CRISPR/CAS9 Target Prediction with Deep Learning, <em>Biomedical Journal of Sci&Tech Res</em>, vol. 21, no. 5, Oct 2019.</li>
-            <li>Aydındağ Bayrak E., Kırcı P., Ensari T., Performance Analysis of Machine Learning Algorithms and Feature Selection Methods on Hepatitis Disease, <em>International Journal of Multidisciplinary Studies and Innovative Technologies</em>, vol. 3, no. 2, pp.135-138, 2019.</li>
-            <li>M. Günay, T. Ensari, "New Approach for Predictive Churn Analysis in Telecom", <em>Transactions on Communications</em>, vol. 18, pp. 66-70, March 2019.</li>
-            <li>M. Yankayis, T. Ensari, Performance Evaluation of Feature Extraction Modeling Methods for Speaker Recognition, <em>Journal of Annals of Review and Research</em>, vol. 4, no. 3, pp. 1-11, November 2018.</li>
-            <li>M. A. Hazar, N. Odabasioglu, T. Ensari, Y. Kavurucu, O. F. Sayan, “Performance Analysis and Improvement of Machine Learning Algorithms for Automatic Modulation Recognition Over Rayleigh Fading Channels", <em>Neural Computing and Applications</em>, vol. 29, issue 9, pp. 351-360, May 2018.</li>
-            <li>T. Ensari, “Pattern Recognition from Face Images", <em>International Journal of Naval Science and Engineering</em>, vol. 13, No. 2, pp. 14-20, November 2017.</li>
-            <li>E. Yıldız, T. Ensari, “Gender Classification from Face Images", <em>International Journal of Naval Science and Engineering</em>, Vol. 13, No. 1, pp. 31-42, April 2017.</li>
-            <li>Y. Kavurucu, T. Ensari, “Smart Home System Hardware and Software Design", <em>International Journal of Naval Science and Engineering</em>, Vol. 12, No. 2, pp. 40-47, December 2016.</li>
-            <li>T. Ensari, “Character Recognition Analysis with Nonnegative Matrix Factorization", <em>International Journal of Computers</em>, Vol. 1, pp. 217-220, September 2016.</li>
-            <li>T. Ensari, "Machine Learning", <em>Information Technologies Magazine</em>, No. 10, pp. 9-10, July 2014.</li>
-            <li>T. Ensari, S. Arik, “New results for robust stability of dynamical neural networks with discrete time delays”, <em>Expert Systems with Applications: An International Journal</em> 37(8): 5925-5930, 2010.</li>
-            <li>T. Ensari, S. Arik, “Global Robust Exponential Stability of Neural Networks with Multiple Time Varying Delays”, <em>Dynamics of Continuous, Discrete and Impulsive Systems, Series A: Mathematical Analysis</em>, Supplementary, Special Issue on Advances in Neural Networks – Theory and Applications, Part I, Vol.14 (S1) pp 6-12, August 2007.</li>
-            <li>T. Ensari, S. Arik, “Global Stability Analysis of Neural Networks with Multiple Time Varying Delays”, <em>IEEE Transactions on Automatic Control</em>, Vol. 50, No. 11, pp. 1781-1785, November 2005.</li>
-            <li>T. Ensari, S. Arik, “Global Stability of A Class of Neural Networks With Time Varying Delay”, <em>IEEE Transactions on Circuits and Systems - II - Express Briefs</em>, Vol. 52, No: 3, pp. 126-130, March 2005.</li>
-        </ol>
-        <br>
-        <h3>B. Conference Publications:</h3><br>
-        <ol>
-            <li>M. Rahaman, R. Ghosh, I. Dutta, T. Ensari, and R. Cunningham, "Enhancing the Programming Sequence for Undergraduate Computer Science Students: A Program for Improving Learning Outcomes," <em>International Congress on Human-Computer Interaction Optimization, and Robotic Applications (HORA)</em>, Istanbul, Turkey, June 8-10, 2023.</li>
-            <li>A. Zencirli, H. Cetin, N. Tug, and T. Ensari, "Improved Next Item Recommendation for Long Tail Products with Machine Learning," <em>International Congress on Human-Computer Interaction, Optimization and Robotic Applications</em>, Ankara, Turkey, June 9-11, 2022.</li>
-            <li>B. Asiroglu, S. Senan, P. Gorgel, M. E. Isenkul, T. Ensari, A. Sezen, M. Dagtekin, "A Deep Learning-based Object Detection System for User Interface Code Generation," <em>International Congress on Human-Computer Interaction, Optimization and Robotic Applications</em>, Ankara, Turkey, June 9-11, 2022.</li>
-            <li>A. Zencirli, H. Cetin, N. Tug, and T. Ensari, “Deep Learning Classification of Location Oriented Recommendation System for Low-Sale Products,” <em>IEEE International Congress on Human-Computer Interaction, Optimization, and Robotics Applications</em>, Turkey, June 11-13, 2021.</li>
-            <li>E. Yıldız, T. Ensari, L. Türker Şener, “Flow Cytometry Data Analysis with Machine Learning,” <em>IEEE 28th International Signal Processing and Communications Applications Conference (SIU)</em>, Gaziantep, Turkey, Oct 5-7, 2020.</li>
-            <li>S. Aykat, S. Senan, T. Ensari, “Classification of Epileptic and Healthy Individual EEG Signals Using Neural Networks,” <em>International Conference on Computer Science and Engineering (UBMK)</em>, pp 47-51, September 9, 2020.</li>
-            <li>E. Zigh, A. Elhoucine, A. Malle, M. Kadiri, B. Kouninef, T. Ensari, “Smartphone Learning for Kids Edutainment,” <em>International Conference on Networking, Information Systems & Security (NISS)</em>, March 31-April 2, 2020.</li>
-            <li>B. R. Mete, T. Ensari, “Flower Classification with Deep Convolutional Neural Networks and Machine Learning Algorithms,” <em>IEEE International Symposium on Multidisciplinary Studies and Innovative Technologies (ISMSIT)</em>, Ankara, Turkey, October 11-13, 2019.</li>
-            <li>B. Aşıroğlu, M. İ. Atalay, A. Balkaya, E. Tüzünkan, M. Dağtekin, T. Ensari, “Smart Clothing Recommendation System with Deep Learning,” <em>IEEE International Symposium on Multidisciplinary Studies and Innovative Technologies (ISMSIT)</em>, Ankara, Turkey, October 11-13, 2019.</li>
-            <li>G. Pirana, A. Sertbaş, T. Ensari, “Sentence Classification with Deep Learning Method for Virtual Assistant Applications,” <em>IEEE International Symposium on Multidisciplinary Studies and Innovative Technologies (ISMSIT)</em>, Ankara, Turkey, October 11-13, 2019.</li>
-            <li>T. Ensari, L. T. Şener, D. Bozkaya, B. Aşıroğlu, “Medical Data Analysis with Machine Learning Methods,” <em>International Physics Congress</em>, Mugla, Turkey, September 4-8, 2019.</li>
-            <li>A. Zencirli, N. Tuğ, T. Ensari, “Smart Decision Support System for E-Commerce Platforms Order Management”, <em>International Conference on Computational Methods in Applied Sciences (ICCMAS)</em>, Istanbul Gelişim University, Istanbul, Turkey, July 12-16, 2019.</li>
-            <li>A. Tektaş, M. Uçar, B. Akçal, T. Ensari, R. Dağdelen, D. Tımartaş, “Anomaly Detection from Sensor Data for Smart Manufacturing and Monitoring”, <em>International Conference on Computational Methods in Applied Sciences (ICCMAS)</em>, Istanbul Gelişim University, Istanbul, Turkey, July 12-16, 2019.</li>
-            <li>Ö. A. Özbek, L. Kutlucan, H. Balamur, T. Ensari, “Location Prediction with Machine Learning on Location based Social Networks”, <em>International Conference on Computational Methods in Applied Sciences (ICCMAS)</em>, Istanbul Gelişim University, Istanbul, Turkey, July 12-16, 2019.</li>
-            <li>B. Aşıroğlu, B. R. Mete, E. Yıldız, Y. Nalçakan, A. Sezen, M. Dağtekin, T. Ensari, "Automatic HTML Code Generation from Mock-up Images via Machine Learning Techniques", <em>IEEE International Conference on Electric Electronics, Computer Science, Biomedical Engineerings'(EBBT)</em>, Arel University, Istanbul, Turkey, April 24-26, 2019.</li>
-            <li>E. Doğan, Ö. Aktaş, T. Ensari, "T. CRISPR/CAS9 Target Prediction with Deep Learning", <em>IEEE International Conference on Electric Electronics, Computer Science, Biomedical Engineerings'(EBBT)</em>, Arel University, Istanbul, Turkey, April 24-26, 2019.</li>
-            <li>M. Günay, Z. Orman, T. Ensari, S. Oukid, N. Benblidia, "Diagnosis of Lung Cancer Using Artificial Immune System", <em>IEEE International Conference on Electric Electronics, Computer Science, Biomedical Engineerings'(EBBT)</em>, Arel University, Istanbul, Turkey, April 24-26, 2019.</li>
-            <li>M. Amrane, S. Oukid, T. Ensari, N. Benblidia, Z. Orman, "Microarray Lung Cancer Data Classification Using Similarity based Feature Selection", <em>IEEE International Conference on Electric Electronics, Computer Science, Biomedical Engineerings'(EBBT)</em>, Arel University, Istanbul, Turkey, April 24-26, 2019.</li>
-            <li>H. Kaya, İ. Keklik, T. Ensari, F. Alkan, Y. Biricik, "Oak Leaf Classification: An Analysis of Features and Classifiers", <em>IEEE International Conference on Electric Electronics, Computer Science, Biomedical Engineerings'(EBBT)</em>, Arel University, Istanbul, Turkey, April 24-26, 2019.</li>
-            <li>M. Amrane, S. Oukid, T. Ensari, "Using Forward / Backword Decision Trees on GSM441161 and GSE32863 Microarray Data", <em>IEEE International Conference on Electric Electronics, Computer Science, Biomedical Engineerings'(EBBT)</em>, Arel University, Istanbul, Turkey, April 24-26, 2019.</li>
-            <li>U. Apaydin, S. Bagriyanik, A. Karahoca, M. Aktas, T. Ensari, S. Verdi, A. Tosun, H. Dogan, “Big Data Analysis on Software Engineering: MEASURE and WEKA”, <em>National Software Engineering Symposium</em>, Izmir, Turkey, September 23-25, 2019.</li>
-            <li>E. A. Bayrak, P. Kırcı, T. Ensari, "Comparison of Machine Learning Methods for Breast Cancer Diagnosis", <em>IEEE International Conference on Electric Electronics, Computer Science, Biomedical Engineerings'(EBBT)</em>, Arel University, Istanbul, Turkey, April 24-26, 2019.</li>
-            <li>M. Günay, E. Yıldız, Y. Nalçakan, B. Aşıroğlu, A. Zencirli, B. R. Mete, T. Ensari, "Digital Data Forgetting: A Machine Learning Approach", <em>IEEE International Symposium on Multidisciplinary Studies and Innovative Technologies (ISMSIT)</em>, Ankara, Turkey, October 19-21, 2018.</li>
-            <li>Y. Nalçakan, T. Ensari, "Decision of Neural Networks Hyperparameters with a Population-based Algorithm", <em>International Conference on Machine Learning, Optimization, and Data Science (LOD)</em>, Tuscany, Italy, September 13-16, 2018.</li>
-            <li>M. Günay, T. Ensari, "Predictive Churn Analysis with Machine Learning Methods", <em>IEEE 26th International Signal Processing and Communications Applications Conference (SIU)</em>, Cesme, Izmir, Turkey, May 2-5, 2018.</li>
-            <li>M. Günay, T. Ensari, "EEG Signal Analysis of Patients with Epilepsy Disorder Using Machine Learning Techniques", <em>IEEE International Conference on Electric Electronics, Computer Science, Biomedical Engineerings' (EBBT)</em>, Arel University, Istanbul, Turkey, April 18-19, 2018.</li>
-            <li>F. M. Tekcan, T. Ensari, A. Sertbas, "Hyperspectral Image Classification with Spectral-Spatial Feature Extraction Methods", <em>IEEE International Conference on Electric Electronics, Computer Science, Biomedical Engineering' (EBBT)</em>, Arel University, Istanbul, Turkey, April 18-19, 2018.</li>
-            <li>M. Amrane, S. Oukid, I. Gagaoua, T. Ensari, "Breast Cancer Classification Using Machine Learning", <em>IEEE International Conference on Electric Electronics, Computer Science, Biomedical Engineering' (EBBT)</em>, Arel University, Istanbul, Turkey, April 18-19, 2018.</li>
-            <li>S. Turgut, M. Dagtekin, T. Ensari, "Microarray Breast Cancer Data Classification Using Machine Learning Methods", <em>IEEE International Conference on Electric Electronics, Computer Science, Biomedical Engineerings' (EBBT)</em>, Arel University, Istanbul, Turkey, April 18-19, 2018.</li>
-            <li>A. Aydın, A. Sertbaş, T. Ensari, "Classification of MicroRNA Biogene Sequences with Machine Learning", <em>International Symposium on Graduate Research in Science: Entrepreneurship and Innovation (ISGRS)</em>, Istanbul, Turkey, October 4-6, 2018.</li>
-            <li>E. Aydındağ Bayrak, Ş. İ. Kirbaslar, P. Kirci, T. Ensari, "Breast Cancer Classification with Machine Learning", <em>International Symposium on Graduate Research in Science: Entrepreneurship and Innovation (ISGRS)</em>, Istanbul, Turkey, October 4-6, 2018.</li>
-            <li>M. Gunay, T. Ensari, "Diabet Diagnosis with Machine Learning", <em>International Conference on Artificial Intelligence and Soft Computing</em>, Amsterdam, Holland, August 9-10, 2017.</li>
-            <li>M. Günay, T. Ensari, "Comparison of Face Recognition Algorithms", <em>IEEE 25th International Signal Processing and Communications Applications Conference (SIU'2017)</em>, Antalya, Turkey, May 15-18, 2017.</li>
-            <li>M. Bilgin, T. Ensari, "Robot Localization with Monte Carlo Method", <em>IEEE International Electrical-Electronics & Biomedical Engineering and Computer Science (EBBT)</em>, Arel University, Istanbul, Turkey, April 20-21, 2017.</li>
-            <li>M. Salih KURT, T. Ensari, "Diabet Diagnosis with Support Vector Machine and Multilayer Perceptrons", <em>IEEE International Electrical-Electronics & Biomedical Engineering and Computer Science (EBBT)</em>, Arel University, Istanbul, Turkey, April 20-21, 2017.</li>
-            <li>Y. Kavurucu, T. Ensari, "Predictive Cruise Control", <em>IEEE International Electrical-Electronics & Biomedical Engineering and Computer Science (EBBT)</em>, Arel University, Istanbul, Turkey, April 20-21, 217.</li>
-            <li>T. Ensari, "Character Recognition Analysis with Nonnegative Matrix Factorization", <em>International Conference on Mathematical Models for Engineering Science</em>, Dubrovnik, Croatia, September 28-30, 2016.</li>
-            <li>D. Celik, T. Ensari and A. Sertbas, "Smart Advertisement and Survey Analysis with Data Mining", <em>International Conference on Computer Science and Engineering</em>, Namik Kemal University, Tekirdag, Turkey, October 20-23, 2016.</li>
-            <li>Y. Kavurucu, T. Ensari, "Using Teensy in Intranet and Internet Media", <em>International Conference on Computer Science and Engineering</em>, Namik Kemal University, Tekirdag, Turkey, October 20-23, 2016.</li>
-            <li>Y. Kavurucu, A. Mutlu, T. Ensari, "Graph-based Concept Discovery in Multi Relational Data", <em>International Conference on Cloud System and Big Data Engineering</em>, Noida, India, January 14-15, 2016.</li>
-            <li>M. A. Hazar, N. Odabasioglu, T. Ensari, and Y. Kavurucu, "Evaluation of Machine Learning Algorithms for Automatic Modulation Recognition", <em>International Conference on Neural Information Processing (ICONIP)</em>, Istanbul, Turkey, November 9-12, 2015.</li>
-            <li>C. Tiken, T. Ensari, "Deep Learning for Edge Detection", <em>International Symposium on Innovative Technologies in Engineering and Science (ISITES)</em>, Valencia, Spain, June 3-5, 2015.</li>
-            <li>C. Uzunoglu, T. Ensari, Y. Kavurucu, "Hadoop Ecosystem and Its Analysis on Tweets", <em>World Congress Technology, Innovation and Entrepreneurship</em>, Istanbul, Turkey, May 28-30, 2015.</li>
-            <li>M. M. Tiryaki, A. Sertbas, T. Ensari, "Passenger Notification System for Intelligent Transportation", <em>International Smart Grid Congress and Fair</em>, Istanbul, Turkey, April 29-30, 2015.</li>
-            <li>D. Celik, T. Ensari, A. Sertbas, “Smart Advertisement Application Using Nonnegative Matrix Factorization", <em>Scientific Congress on Electrical-Electronics, Computer and Biomedical Engineering</em>, Arel University, Istanbul, May 26-28, 2014.</li>
-            <li>M. Kaya, O. Bektas, T. Ensari, “Breast Cancer Diagnosis Using Nonnegative Matrix Factorization", <em>Scientific Congress on Electrical-Electronics, Computer and Biomedical Engineering</em>, Arel University, Istanbul, May 26-28, 2014.</li>
-            <li>J. M. Zurada, T. Ensari, E. H. Asl, J. Chorowski, "Nonnegative Matrix Factorization and Its Application to Pattern Analysis and Text Mining", <em>Federated Conference on Computer Science and Information Systems (FedCSIS)</em>, pp. 11-16, vol.8, Issue 11, Krakow, Poland, September 8-11, 2013.</li>
-            <li>T. Ensari, J. Chorowski, J. M. Zurada, “Correntropy-based Document Clustering via Nonnegative Matrix Factorization”, <em>International Conference on Artificial Neural Networks (ICANN)</em>, vol. 7553, pp. 347-354, Lausanne, Switzerland, September 11-14, 2012.</li>
-            <li>T. Ensari, J. Chorowski, J. M. Zurada, “Occluded Face Recognition Using Correntropy-based Nonnegative Matrix Factorization”, <em>International Conference on Machine Learning and Applications (ICMLA)</em>, vol.1, pp. 606-609, Boca Raton, Florida, USA, December 12-15, 2012.</li>
-            <li>T. Ensari, M.Erkan Yüksel, “Convergence Analysis of Hopfield Neural Networks”, <em>6th International Advanced Technologies Symposium (IATS)</em>, Elazığ, Turkey, May 16-18, 2011.</li>
-            <li>T. Ensari, S. Arik, "Global Exponential Stability of Neural Networks with Multiple Time Varying Delays", <em>Fifteenth Turkish Symposium on Artificial Intelligence and Neural Networks (TAINN)</em>, Akyaka (Gokova), Mugla, Turkey, June 21-24, 2006.</li>
-            <li>T. Ensari, S. Arik, "Stability Analysis of Neural Networks with Multiple Time Varying Delays", <em>Turkish Symposium on Artificial Intelligence and Neural Networks (TAINN)</em>, Cesme, Izmir, Turkey, June 16-17, 2005.</li>
-            <li>T. Ensari, S. Arik, “Global Asymptotical Stability of Neural Networks with Time Varying Delay”, <em>International Turkish Symposium on Artificial Intelligence and Neural Networks (TAINN)</em>, Foca, Izmir, Turkey, June 10-11, 2004.</li>
-            <li>T. Ensari, S. Arik, “Global Stability of A Class of Neural Networks With Time Varying Delay”, <em>IEEE International Symposium on Circuits and Systems (ISCAS)</em>, Vancouver, Canada, May 23-26, 2004.</li>
-            <li>S. Kent, O. N. Ucan, T. Ensari, “Speckle Reduction of Synthetic Aperture Radar Images Using Wavelet Filtering”, <em>European Conference on Synthetic Aperture Radar (EUSAR)</em>, Ulm, Germany, May 25-27, 2004.</li>
-            <li>S. Kent, O. N. Ucan, T. Ensari, “Implementation of Cellular Neural Networks to Synthetic Aperture Radar Images”, <em>European Conference on Synthetic Aperture Radar (EUSAR)</em>, Ulm, Germany, May 25-27, 2004.</li>
-            <li>S. Kent, O. N. Ucan, T. Ensari, “Synthetic Aperture Radar Image Processing Using Cellular Neural Networks”, <em>International Conference on Recent Advances in Space Technologies (RAST)</em>, Air Force Academy, Istanbul, Turkey, November 20-22, 2003.</li>
-            <li>T. Ensari, O. N. Uçan and A. Karahoca, “Cellular Neural Network Approach in Distributed Database Management Systems”, <em>Engineering Science Young Researchers Congress (MBGAK)</em>, Istanbul, Turkey, February 17-20, 2003.</li>
-            <li>T. Ensari, N. Kilic, O. N. Ucan and A. Ozmen, “Biomedical Image Processing Using Markov Random Fields and Cellular Neural Networks”, <em>Signal Processing and Communication Applications Conference (SIU)</em>, Koc University, Istanbul, Turkey, June 18-20, 2003.</li>
-        </ol>
-    </section>
-    
-</main>
+
+        <div class="pub-card">
+            <div class="pub-number">2</div>
+            <div class="pub-content">
+                <div class="pub-title">Ontology Supported Semantic Based Image Retrieval</div>
+                <div class="pub-authors">A. Gasi, T. Ensari, and M. Dagtekin</div>
+                <div class="pub-venue"><em>Research Square, Journal of Semantic Web</em>, vol. 15, no. 5, pp. 2125–2137, Oct 2024 <span class="badge badge-recent">2024</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">3</div>
+            <div class="pub-content">
+                <div class="pub-title">Machine Learning Based Microarray Data Analysis for Target Gene Inference</div>
+                <div class="pub-authors">Z. Cavdar, A. Sertbas, and T. Ensari</div>
+                <div class="pub-venue"><em>Journal</em>, vol. 17, no. 2, pp. 174–183, 2024 <span class="badge badge-recent">2024</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">4</div>
+            <div class="pub-content">
+                <div class="pub-title">Molecules Generation to Inhibit Covid-19 Disease Using Encoder-Decoder LSTM Architecture and PCA Properties</div>
+                <div class="pub-authors">M. Amrane, S. Oukid, and T. Ensari</div>
+                <div class="pub-venue"><em>Journal of Mechanics in Medicine and Biology</em>, vol. 23, no. 1, 2023</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">5</div>
+            <div class="pub-content">
+                <div class="pub-title">Converting Image Files to LaTeX Format Using Computer Vision, Natural Language Processing, and Machine Learning</div>
+                <div class="pub-authors">M. Kazanc, M. Dagtekin, and T. Ensari</div>
+                <div class="pub-venue"><em>ACTA Infologica</em>, vol. 7, no. 2, pp. 253–266, October 2023</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">6</div>
+            <div class="pub-content">
+                <div class="pub-title">MicroRNA Target Prediction by Machine Learning-based Microarray Technique: Research Study</div>
+                <div class="pub-authors">Z. Cavdar, T. Ensari, L. T. Sener, A. Sertbas</div>
+                <div class="pub-venue"><em>European Journal of Science and Technology</em>, Issue 44, pp. 39–45, 2022</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">7</div>
+            <div class="pub-content">
+                <div class="pub-title">Violence Detection with Machine Learning: A Sociodemographic Approach</div>
+                <div class="pub-authors">T. Ensari, B. Ensari, M. Dagtekin</div>
+                <div class="pub-venue"><em>European Journal of Science and Technology</em>, Issue 44, pp. 104–107, 2022</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">8</div>
+            <div class="pub-content">
+                <div class="pub-title">Diagnosing Breast Cancer Using Machine Learning Methods</div>
+                <div class="pub-authors">E. A. Bayrak, P. Kirci, T. Ensari, E. Seven, and M. Dagtekin</div>
+                <div class="pub-venue"><em>Journal of Intelligent Systems: Theory and Applications</em>, vol. 5, no. 1, pp. 35–41, 2022</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">9</div>
+            <div class="pub-content">
+                <div class="pub-title">Gene Expression Data Classification Using Genetic Algorithm based Feature Selection</div>
+                <div class="pub-authors">O. S. Sonmez, M. Dagtekin, and T. Ensari</div>
+                <div class="pub-venue"><em>Turkish Journal of Electrical Engineering and Computer Sciences</em>, vol. 29, no. 7, 2021</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">10</div>
+            <div class="pub-content">
+                <div class="pub-title">Semantic-based Image Retrieval — A Survey</div>
+                <div class="pub-authors">A. Gasi, T. Ensari, and M. Dagtekin</div>
+                <div class="pub-venue"><em>Journal of Acta-Infologica / Istanbul University</em>, vol. 5, no. 2, 2021</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">11</div>
+            <div class="pub-content">
+                <div class="pub-title">Filtering Videos by Classification with Deep Learning</div>
+                <div class="pub-authors">M. Kazanc, T. Ensari, and M. Dagtekin</div>
+                <div class="pub-venue"><em>European Journal of Science and Technology</em>, vol. 26, pp. 338–342, 2021 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">12</div>
+            <div class="pub-content">
+                <div class="pub-title">Post-Traumatic Stress Disorder (PTSD) Management: A Machine Learning Approach</div>
+                <div class="pub-authors">M. Dağtekin, E. Seven, A. E. Balsever, E. N. Var, L. T. Şener, A. N. Alçalar, B. Ensari, T. Ensari</div>
+                <div class="pub-venue"><em>European Journal of Science &amp; Technology</em>, Special Issue, pp. 284–288, August 2020</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">13</div>
+            <div class="pub-content">
+                <div class="pub-title">Convolutional Neural Networks for Image-Based Digital Plant Phenotyping</div>
+                <div class="pub-authors">T. Ensari, D. C. Armah, A. E. Balsever, M. Dağtekin</div>
+                <div class="pub-venue"><em>European Journal of Science &amp; Technology</em>, Special Issue, pp. 338–342, August 2020</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">14</div>
+            <div class="pub-content">
+                <div class="pub-title">CRISPR/CAS9 Target Prediction with Deep Learning</div>
+                <div class="pub-authors">Ö. Aktaş, E. Doğan, T. Ensari</div>
+                <div class="pub-venue"><em>Biomedical Journal of Sci&amp;Tech Res</em>, vol. 21, no. 5, Oct 2019</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">15</div>
+            <div class="pub-content">
+                <div class="pub-title">Performance Analysis of Machine Learning Algorithms and Feature Selection Methods on Hepatitis Disease</div>
+                <div class="pub-authors">E. Aydındağ Bayrak, P. Kırcı, T. Ensari</div>
+                <div class="pub-venue"><em>International Journal of Multidisciplinary Studies and Innovative Technologies</em>, vol. 3, no. 2, pp. 135–138, 2019</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">16</div>
+            <div class="pub-content">
+                <div class="pub-title">New Approach for Predictive Churn Analysis in Telecom <span class="badge badge-invited">Invited</span></div>
+                <div class="pub-authors">M. Günay, T. Ensari</div>
+                <div class="pub-venue"><em>Transactions on Communications</em>, vol. 18, pp. 66–70, March 2019</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">17</div>
+            <div class="pub-content">
+                <div class="pub-title">Performance Evaluation of Feature Extraction Modeling Methods for Speaker Recognition</div>
+                <div class="pub-authors">M. Yankayis, T. Ensari</div>
+                <div class="pub-venue"><em>Journal of Annals of Review and Research</em>, vol. 4, no. 3, pp. 1–11, November 2018</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">18</div>
+            <div class="pub-content">
+                <div class="pub-title">Performance Analysis and Improvement of Machine Learning Algorithms for Automatic Modulation Recognition Over Rayleigh Fading Channels</div>
+                <div class="pub-authors">M. A. Hazar, N. Odabasioglu, T. Ensari, Y. Kavurucu, O. F. Sayan</div>
+                <div class="pub-venue"><em>Neural Computing and Applications</em>, vol. 29, issue 9, pp. 351–360, May 2018</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">19</div>
+            <div class="pub-content">
+                <div class="pub-title">Pattern Recognition from Face Images</div>
+                <div class="pub-authors">T. Ensari</div>
+                <div class="pub-venue"><em>International Journal of Naval Science and Engineering</em>, vol. 13, no. 2, pp. 14–20, November 2017</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">20</div>
+            <div class="pub-content">
+                <div class="pub-title">Gender Classification from Face Images</div>
+                <div class="pub-authors">E. Yıldız, T. Ensari</div>
+                <div class="pub-venue"><em>International Journal of Naval Science and Engineering</em>, vol. 13, no. 1, pp. 31–42, April 2017</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">21</div>
+            <div class="pub-content">
+                <div class="pub-title">Smart Home System Hardware and Software Design</div>
+                <div class="pub-authors">Y. Kavurucu, T. Ensari</div>
+                <div class="pub-venue"><em>International Journal of Naval Science and Engineering</em>, vol. 12, no. 2, pp. 40–47, December 2016</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">22</div>
+            <div class="pub-content">
+                <div class="pub-title">Character Recognition Analysis with Nonnegative Matrix Factorization</div>
+                <div class="pub-authors">T. Ensari</div>
+                <div class="pub-venue"><em>International Journal of Computers</em>, vol. 1, pp. 217–220, September 2016</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">23</div>
+            <div class="pub-content">
+                <div class="pub-title">Machine Learning</div>
+                <div class="pub-authors">T. Ensari</div>
+                <div class="pub-venue"><em>Information Technologies Magazine</em>, no. 10, pp. 9–10, July 2014</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">24</div>
+            <div class="pub-content">
+                <div class="pub-title">New Results for Robust Stability of Dynamical Neural Networks with Discrete Time Delays</div>
+                <div class="pub-authors">T. Ensari, S. Arik</div>
+                <div class="pub-venue"><em>Expert Systems with Applications</em>, 37(8): 5925–5930, 2010</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">25</div>
+            <div class="pub-content">
+                <div class="pub-title">Global Robust Exponential Stability of Neural Networks with Multiple Time Varying Delays</div>
+                <div class="pub-authors">T. Ensari, S. Arik</div>
+                <div class="pub-venue"><em>Dynamics of Continuous, Discrete and Impulsive Systems, Series A</em>, vol. 14(S1), pp. 6–12, August 2007</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">26</div>
+            <div class="pub-content">
+                <div class="pub-title">Global Stability Analysis of Neural Networks with Multiple Time Varying Delays</div>
+                <div class="pub-authors">T. Ensari, S. Arik</div>
+                <div class="pub-venue"><em>IEEE Transactions on Automatic Control</em>, vol. 50, no. 11, pp. 1781–1785, November 2005 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">27</div>
+            <div class="pub-content">
+                <div class="pub-title">Global Stability of A Class of Neural Networks With Time Varying Delay</div>
+                <div class="pub-authors">T. Ensari, S. Arik</div>
+                <div class="pub-venue"><em>IEEE Transactions on Circuits and Systems – II – Express Briefs</em>, vol. 52, no. 3, pp. 126–130, March 2005 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+    </div><!-- /pub-list journals -->
+
+
+    <!-- ═══════════════════════════════════════════
+         B. CONFERENCE PUBLICATIONS
+    ════════════════════════════════════════════ -->
+    <div class="section-title"><i class="fas fa-chalkboard-teacher"></i> B. Conference Publications</div>
+    <div class="pub-list">
+
+        <div class="pub-card">
+            <div class="pub-number">1</div>
+            <div class="pub-content">
+                <div class="pub-title">The AI Center at LISA Academy</div>
+                <div class="pub-authors">F. Bogrek, H. Sazci, B. Ratermann, M. Guven, R. Shaimurat, B. Uygur, A. Kaya, E. Celebi, E. Erdin, S. Bhandari, T. Ensari</div>
+                <div class="pub-venue"><em>Arkansas STEM Posters at the Capitol</em>, Little Rock, January 30, 2025 <span class="badge badge-recent">2025</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">2</div>
+            <div class="pub-content">
+                <div class="pub-title">Spiking Neural Networks in Medical Imaging: Revolutionizing Cancer Detection</div>
+                <div class="pub-authors">S. Bhandari, S. Dhakal, B. Asiroglu, T. Ensari, and B. B. Ustundag</div>
+                <div class="pub-venue"><em>Arkansas STEM Posters at the Capitol</em>, Little Rock, January 30, 2025 <span class="badge badge-recent">2025</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">3</div>
+            <div class="pub-content">
+                <div class="pub-title">Understanding the Impact of Data Poisoning on Financial Fraud Detection: Thresholds and Feature Sensitivity</div>
+                <div class="pub-authors">L. Hong, S. Bhandari, and T. Ensari</div>
+                <div class="pub-venue"><em>ATU Student Research Symposium</em>, Russellville, April 29, 2025 <span class="badge badge-recent">2025</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">4</div>
+            <div class="pub-content">
+                <div class="pub-title">Empowering Students through Project-Based Learning in Computer Science: Connecting Real-World Problems to Classroom Innovation</div>
+                <div class="pub-authors">R. Shaimurat, F. Bogrek, B. Ratermann, S. Bhandari, T. Ensari, and J. Wood</div>
+                <div class="pub-venue"><em>ATU Student Research Symposium</em>, Russellville, April 29, 2025 <span class="badge badge-recent">2025</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">5</div>
+            <div class="pub-content">
+                <div class="pub-title">AI-Driven Computer Vision: Foundations, Innovations, and Applications</div>
+                <div class="pub-authors">S. Bhandari, V. Gogineni, M. Kelestemur, and T. Ensari</div>
+                <div class="pub-venue"><em>SNAS Interdisciplinary Research Conference</em>, Fairleigh Dickinson University, New Jersey, October 10, 2025 <span class="badge badge-recent">2025</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">6</div>
+            <div class="pub-content">
+                <div class="pub-title">Spiking Neural Networks for ECG Classification and Anomaly Detection</div>
+                <div class="pub-authors">S. Bhandari, B. Asiroglu, S. Dhakal, R. Ghosh, T. Ensari, and B. B. Ustundag</div>
+                <div class="pub-venue"><em>IEEE 16th Annual Ubiquitous Computing, Electronics &amp; Mobile Communication Conference (UEMCON)</em>, New York, October 22–24, 2025 <span class="badge badge-ieee">IEEE</span><span class="badge badge-recent">2025</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">7</div>
+            <div class="pub-content">
+                <div class="pub-title">High Entropy NiTiHfZrCu SMA; Transformation Temperatures, Microstructure and Mechanical Performance</div>
+                <div class="pub-authors">H. Raji, M. Kelestemur, T. Ensari, and S. Saedi</div>
+                <div class="pub-venue"><em>TMS 2024, 153rd Annual Meeting &amp; Exhibition</em>, Orlando, Florida, March 3–7, 2024 <span class="badge badge-recent">2024</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">8</div>
+            <div class="pub-content">
+                <div class="pub-title">Anomaly Detection with Spiking Neural Networks</div>
+                <div class="pub-authors">S. Bhandari, V. Gogineni, J. Wood, T. Ensari, and B. Ustundag</div>
+                <div class="pub-venue"><em>ATU Research Symposium</em>, Russellville, April 18, 2024 <span class="badge badge-recent">2024</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">9</div>
+            <div class="pub-content">
+                <div class="pub-title">Neuromorphic Computing for Data Compression</div>
+                <div class="pub-authors">M. Corbett-Strain, T. Ensari, B. B. Ustundag</div>
+                <div class="pub-venue"><em>STEM at the Capitol</em>, Little Rock, February 14, 2024 <span class="badge badge-recent">2024</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">10</div>
+            <div class="pub-content">
+                <div class="pub-title">Occluded Traffic Sign Detection with YOLOV3</div>
+                <div class="pub-authors">R. Tarannum, T. Ensari</div>
+                <div class="pub-venue"><em>STEM at the Capitol</em>, Little Rock, February 14, 2024 <span class="badge badge-recent">2024</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">11</div>
+            <div class="pub-content">
+                <div class="pub-title">Breast Cancer Classification with Machine Learning</div>
+                <div class="pub-authors">R. Tarannum, J. Wood, and T. Ensari</div>
+                <div class="pub-venue"><em>ATU Research Symposium</em>, Russellville, April 18, 2024 <span class="badge badge-recent">2024</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">12</div>
+            <div class="pub-content">
+                <div class="pub-title">Classification and Segmentation of Material Microstructures Images Using Machine Learning</div>
+                <div class="pub-authors">M. Rahman, M. H. Kelestemur, S. Saedi, and T. Ensari</div>
+                <div class="pub-venue"><em>STEM at the Capitol</em>, Little Rock, February 14, 2024 <span class="badge badge-recent">2024</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">13</div>
+            <div class="pub-content">
+                <div class="pub-title">AI Task Force Initiative at North American University: Pioneering AI-Driven Transformation in Education, Research, and Administration</div>
+                <div class="pub-authors">A. Zhamanov, T. Ensari, F. Taban, A. Kucuk, and A. Boltayev</div>
+                <div class="pub-venue"><em>Interdisciplinary Research Conference, Society of North American Scholars</em>, Western Connecticut State University, Danbury, CT, October 11, 2024 <span class="badge badge-recent">2024</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">14</div>
+            <div class="pub-content">
+                <div class="pub-title">Advancing Mental Health Care Through AI and Interdisciplinary Efforts in Higher Education</div>
+                <div class="pub-authors">Z. Orhan, B. Ensari, T. Ensari, and F. Arslan</div>
+                <div class="pub-venue"><em>Interdisciplinary Research Conference, Society of North American Scholars</em>, Western Connecticut State University, Danbury, CT, October 11, 2024 <span class="badge badge-recent">2024</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">15</div>
+            <div class="pub-content">
+                <div class="pub-title">Enhancing Student Development with AI: A Case Study of Code Monkey in Social Emotional Learning (SEL)</div>
+                <div class="pub-authors">B. Ensari, J. Wood, and T. Ensari</div>
+                <div class="pub-venue"><em>Interdisciplinary Research Conference, Society of North American Scholars</em>, Western Connecticut State University, Danbury, CT, October 11, 2024 <span class="badge badge-recent">2024</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">16</div>
+            <div class="pub-content">
+                <div class="pub-title">Enhancing the Programming Sequence for Undergraduate Computer Science Students: A Program for Improving Learning Outcomes</div>
+                <div class="pub-authors">M. Rahaman, R. Ghosh, I. Dutta, T. Ensari, and R. Cunningham</div>
+                <div class="pub-venue"><em>International Congress on Human-Computer Interaction, Optimization, and Robotic Applications (HORA)</em>, Istanbul, Turkey, June 8–10, 2023</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">17</div>
+            <div class="pub-content">
+                <div class="pub-title">Programming Sequence Improvement Program (PSIP)</div>
+                <div class="pub-authors">M. Rahaman, R. Ghosh, R. Cunningham, I. Dutta, and T. Ensari</div>
+                <div class="pub-venue"><em>STEM at the Capitol Workshop</em>, Little Rock, February 8, 2023</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">18</div>
+            <div class="pub-content">
+                <div class="pub-title">Classification Analysis with Spiking Neural Networks</div>
+                <div class="pub-authors">M. M. Alam, B. B. Ustundag, D. T. Altilar, and T. Ensari</div>
+                <div class="pub-venue"><em>Arkansas Tech University Research Symposium</em>, Russellville, April 25, 2023</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">19</div>
+            <div class="pub-content">
+                <div class="pub-title">Improved Next Item Recommendation for Long Tail Products with Machine Learning</div>
+                <div class="pub-authors">A. Zencirli, H. Cetin, N. Tug, and T. Ensari</div>
+                <div class="pub-venue"><em>International Congress on Human-Computer Interaction, Optimization and Robotic Applications</em>, Ankara, Turkey, June 9–11, 2022</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">20</div>
+            <div class="pub-content">
+                <div class="pub-title">A Deep Learning-based Object Detection System for User Interface Code Generation</div>
+                <div class="pub-authors">B. Asiroglu, S. Senan, P. Gorgel, M. E. Isenkul, T. Ensari, A. Sezen, M. Dagtekin</div>
+                <div class="pub-venue"><em>International Congress on Human-Computer Interaction, Optimization and Robotic Applications</em>, Ankara, Turkey, June 9–11, 2022</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">21</div>
+            <div class="pub-content">
+                <div class="pub-title">Deep Learning Classification of Location Oriented Recommendation System for Low-Sale Products</div>
+                <div class="pub-authors">A. Zencirli, H. Cetin, N. Tug, and T. Ensari</div>
+                <div class="pub-venue"><em>IEEE International Congress on Human-Computer Interaction, Optimization, and Robotics Applications</em>, Turkey, June 11–13, 2021 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">22</div>
+            <div class="pub-content">
+                <div class="pub-title">Flow Cytometry Data Analysis with Machine Learning</div>
+                <div class="pub-authors">E. Yıldız, T. Ensari, L. Türker Şener</div>
+                <div class="pub-venue"><em>IEEE 28th International Signal Processing and Communications Applications Conference (SIU)</em>, Gaziantep, Turkey, Oct 5–7, 2020 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">23</div>
+            <div class="pub-content">
+                <div class="pub-title">Classification of Epileptic and Healthy Individual EEG Signals Using Neural Networks</div>
+                <div class="pub-authors">S. Aykat, S. Senan, T. Ensari</div>
+                <div class="pub-venue"><em>International Conference on Computer Science and Engineering (UBMK)</em>, pp. 47–51, September 9, 2020</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">24</div>
+            <div class="pub-content">
+                <div class="pub-title">Smartphone Learning for Kids Edutainment</div>
+                <div class="pub-authors">E. Zigh, A. Elhoucine, A. Malle, M. Kadiri, B. Kouninef, T. Ensari</div>
+                <div class="pub-venue"><em>International Conference on Networking, Information Systems &amp; Security (NISS)</em>, March 31–April 2, 2020</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">25</div>
+            <div class="pub-content">
+                <div class="pub-title">Flower Classification with Deep Convolutional Neural Networks and Machine Learning Algorithms</div>
+                <div class="pub-authors">B. R. Mete, T. Ensari</div>
+                <div class="pub-venue"><em>IEEE International Symposium on Multidisciplinary Studies and Innovative Technologies (ISMSIT)</em>, Ankara, Turkey, October 11–13, 2019 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">26</div>
+            <div class="pub-content">
+                <div class="pub-title">Smart Clothing Recommendation System with Deep Learning</div>
+                <div class="pub-authors">B. Aşıroğlu, M. İ. Atalay, A. Balkaya, E. Tüzünkan, M. Dağtekin, T. Ensari</div>
+                <div class="pub-venue"><em>IEEE ISMSIT</em>, Ankara, Turkey, October 11–13, 2019 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">27</div>
+            <div class="pub-content">
+                <div class="pub-title">Sentence Classification with Deep Learning Method for Virtual Assistant Applications</div>
+                <div class="pub-authors">G. Pirana, A. Sertbaş, T. Ensari</div>
+                <div class="pub-venue"><em>IEEE ISMSIT</em>, Ankara, Turkey, October 11–13, 2019 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">28</div>
+            <div class="pub-content">
+                <div class="pub-title">Medical Data Analysis with Machine Learning Methods</div>
+                <div class="pub-authors">T. Ensari, L. T. Şener, D. Bozkaya, B. Aşıroğlu</div>
+                <div class="pub-venue"><em>International Physics Congress</em>, Mugla, Turkey, September 4–8, 2019</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">29</div>
+            <div class="pub-content">
+                <div class="pub-title">Smart Decision Support System for E-Commerce Platforms Order Management</div>
+                <div class="pub-authors">A. Zencirli, N. Tuğ, T. Ensari</div>
+                <div class="pub-venue"><em>International Conference on Computational Methods in Applied Sciences (ICCMAS)</em>, Istanbul, Turkey, July 12–16, 2019</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">30</div>
+            <div class="pub-content">
+                <div class="pub-title">Anomaly Detection from Sensor Data for Smart Manufacturing and Monitoring</div>
+                <div class="pub-authors">A. Tektaş, M. Uçar, B. Akçal, T. Ensari, R. Dağdelen, D. Tımartaş</div>
+                <div class="pub-venue"><em>ICCMAS</em>, Istanbul, Turkey, July 12–16, 2019</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">31</div>
+            <div class="pub-content">
+                <div class="pub-title">Location Prediction with Machine Learning on Location based Social Networks</div>
+                <div class="pub-authors">Ö. A. Özbek, L. Kutlucan, H. Balamur, T. Ensari</div>
+                <div class="pub-venue"><em>ICCMAS</em>, Istanbul, Turkey, July 12–16, 2019</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">32</div>
+            <div class="pub-content">
+                <div class="pub-title">Automatic HTML Code Generation from Mock-up Images via Machine Learning Techniques</div>
+                <div class="pub-authors">B. Aşıroğlu, B. R. Mete, E. Yıldız, Y. Nalçakan, A. Sezen, M. Dağtekin, T. Ensari</div>
+                <div class="pub-venue"><em>IEEE International Conference on Electric Electronics, Computer Science, Biomedical Engineerings (EBBT)</em>, Istanbul, Turkey, April 24–26, 2019 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">33</div>
+            <div class="pub-content">
+                <div class="pub-title">CRISPR/CAS9 Target Prediction with Deep Learning</div>
+                <div class="pub-authors">E. Doğan, Ö. Aktaş, T. Ensari</div>
+                <div class="pub-venue"><em>IEEE EBBT</em>, Istanbul, Turkey, April 24–26, 2019 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">34</div>
+            <div class="pub-content">
+                <div class="pub-title">Diagnosis of Lung Cancer Using Artificial Immune System</div>
+                <div class="pub-authors">M. Günay, Z. Orman, T. Ensari, S. Oukid, N. Benblidia</div>
+                <div class="pub-venue"><em>IEEE EBBT</em>, Istanbul, Turkey, April 24–26, 2019 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">35</div>
+            <div class="pub-content">
+                <div class="pub-title">Microarray Lung Cancer Data Classification Using Similarity based Feature Selection</div>
+                <div class="pub-authors">M. Amrane, S. Oukid, T. Ensari, N. Benblidia, Z. Orman</div>
+                <div class="pub-venue"><em>IEEE EBBT</em>, Istanbul, Turkey, April 24–26, 2019 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">36</div>
+            <div class="pub-content">
+                <div class="pub-title">Oak Leaf Classification: An Analysis of Features and Classifiers</div>
+                <div class="pub-authors">H. Kaya, İ. Keklik, T. Ensari, F. Alkan, Y. Biricik</div>
+                <div class="pub-venue"><em>IEEE EBBT</em>, Istanbul, Turkey, April 24–26, 2019 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">37</div>
+            <div class="pub-content">
+                <div class="pub-title">Using Forward / Backward Decision Trees on GSM441161 and GSE32863 Microarray Data</div>
+                <div class="pub-authors">M. Amrane, S. Oukid, T. Ensari</div>
+                <div class="pub-venue"><em>IEEE EBBT</em>, Istanbul, Turkey, April 24–26, 2019 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">38</div>
+            <div class="pub-content">
+                <div class="pub-title">Big Data Analysis on Software Engineering: MEASURE and WEKA</div>
+                <div class="pub-authors">U. Apaydin, S. Bagriyanik, A. Karahoca, M. Aktas, T. Ensari, S. Verdi, A. Tosun, H. Dogan</div>
+                <div class="pub-venue"><em>National Software Engineering Symposium</em>, Izmir, Turkey, September 23–25, 2019</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">39</div>
+            <div class="pub-content">
+                <div class="pub-title">Comparison of Machine Learning Methods for Breast Cancer Diagnosis</div>
+                <div class="pub-authors">E. A. Bayrak, P. Kırcı, T. Ensari</div>
+                <div class="pub-venue"><em>IEEE EBBT</em>, Istanbul, Turkey, April 24–26, 2019 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">40</div>
+            <div class="pub-content">
+                <div class="pub-title">Digital Data Forgetting: A Machine Learning Approach</div>
+                <div class="pub-authors">M. Günay, E. Yıldız, Y. Nalçakan, B. Aşıroğlu, A. Zencirli, B. R. Mete, T. Ensari</div>
+                <div class="pub-venue"><em>IEEE ISMSIT</em>, Ankara, Turkey, October 19–21, 2018 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">41</div>
+            <div class="pub-content">
+                <div class="pub-title">Decision of Neural Networks Hyperparameters with a Population-based Algorithm</div>
+                <div class="pub-authors">Y. Nalçakan, T. Ensari</div>
+                <div class="pub-venue"><em>International Conference on Machine Learning, Optimization, and Data Science (LOD)</em>, Tuscany, Italy, September 13–16, 2018</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">42</div>
+            <div class="pub-content">
+                <div class="pub-title">Predictive Churn Analysis with Machine Learning Methods</div>
+                <div class="pub-authors">M. Günay, T. Ensari</div>
+                <div class="pub-venue"><em>IEEE 26th International Signal Processing and Communications Applications Conference (SIU)</em>, Cesme, Izmir, Turkey, May 2–5, 2018 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">43</div>
+            <div class="pub-content">
+                <div class="pub-title">EEG Signal Analysis of Patients with Epilepsy Disorder Using Machine Learning Techniques</div>
+                <div class="pub-authors">M. Günay, T. Ensari</div>
+                <div class="pub-venue"><em>IEEE EBBT</em>, Istanbul, Turkey, April 18–19, 2018 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">44</div>
+            <div class="pub-content">
+                <div class="pub-title">Hyperspectral Image Classification with Spectral-Spatial Feature Extraction Methods</div>
+                <div class="pub-authors">F. M. Tekcan, T. Ensari, A. Sertbas</div>
+                <div class="pub-venue"><em>IEEE EBBT</em>, Istanbul, Turkey, April 18–19, 2018 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">45</div>
+            <div class="pub-content">
+                <div class="pub-title">Breast Cancer Classification Using Machine Learning</div>
+                <div class="pub-authors">M. Amrane, S. Oukid, I. Gagaoua, T. Ensari</div>
+                <div class="pub-venue"><em>IEEE EBBT</em>, Istanbul, Turkey, April 18–19, 2018 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">46</div>
+            <div class="pub-content">
+                <div class="pub-title">Microarray Breast Cancer Data Classification Using Machine Learning Methods</div>
+                <div class="pub-authors">S. Turgut, M. Dagtekin, T. Ensari</div>
+                <div class="pub-venue"><em>IEEE EBBT</em>, Istanbul, Turkey, April 18–19, 2018 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">47</div>
+            <div class="pub-content">
+                <div class="pub-title">Classification of MicroRNA Biogene Sequences with Machine Learning</div>
+                <div class="pub-authors">A. Aydın, A. Sertbaş, T. Ensari</div>
+                <div class="pub-venue"><em>International Symposium on Graduate Research in Science: Entrepreneurship and Innovation (ISGRS)</em>, Istanbul, Turkey, October 4–6, 2018</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">48</div>
+            <div class="pub-content">
+                <div class="pub-title">Breast Cancer Classification with Machine Learning</div>
+                <div class="pub-authors">E. Aydındağ Bayrak, Ş. İ. Kirbaslar, P. Kirci, T. Ensari</div>
+                <div class="pub-venue"><em>ISGRS</em>, Istanbul, Turkey, October 4–6, 2018</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">49</div>
+            <div class="pub-content">
+                <div class="pub-title">Diabet Diagnosis with Machine Learning</div>
+                <div class="pub-authors">M. Gunay, T. Ensari</div>
+                <div class="pub-venue"><em>International Conference on Artificial Intelligence and Soft Computing</em>, Amsterdam, Holland, August 9–10, 2017</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">50</div>
+            <div class="pub-content">
+                <div class="pub-title">Comparison of Face Recognition Algorithms</div>
+                <div class="pub-authors">M. Günay, T. Ensari</div>
+                <div class="pub-venue"><em>IEEE 25th International Signal Processing and Communications Applications Conference (SIU'2017)</em>, Antalya, Turkey, May 15–18, 2017 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">51</div>
+            <div class="pub-content">
+                <div class="pub-title">Robot Localization with Monte Carlo Method</div>
+                <div class="pub-authors">M. Bilgin, T. Ensari</div>
+                <div class="pub-venue"><em>IEEE International Electrical-Electronics &amp; Biomedical Engineering and Computer Science (EBBT)</em>, Istanbul, Turkey, April 20–21, 2017 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">52</div>
+            <div class="pub-content">
+                <div class="pub-title">Diabet Diagnosis with Support Vector Machine and Multilayer Perceptrons</div>
+                <div class="pub-authors">M. Salih Kurt, T. Ensari</div>
+                <div class="pub-venue"><em>IEEE EBBT</em>, Istanbul, Turkey, April 20–21, 2017 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">53</div>
+            <div class="pub-content">
+                <div class="pub-title">Predictive Cruise Control</div>
+                <div class="pub-authors">Y. Kavurucu, T. Ensari</div>
+                <div class="pub-venue"><em>IEEE EBBT</em>, Istanbul, Turkey, April 20–21, 2017 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">54</div>
+            <div class="pub-content">
+                <div class="pub-title">Character Recognition Analysis with Nonnegative Matrix Factorization <span class="badge badge-invited">Invited</span></div>
+                <div class="pub-authors">T. Ensari</div>
+                <div class="pub-venue"><em>International Conference on Mathematical Models for Engineering Science</em>, Dubrovnik, Croatia, September 28–30, 2016</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">55</div>
+            <div class="pub-content">
+                <div class="pub-title">Smart Advertisement and Survey Analysis with Data Mining</div>
+                <div class="pub-authors">D. Celik, T. Ensari, A. Sertbas</div>
+                <div class="pub-venue"><em>International Conference on Computer Science and Engineering</em>, Namik Kemal University, Tekirdag, Turkey, October 20–23, 2016</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">56</div>
+            <div class="pub-content">
+                <div class="pub-title">Using Teensy in Intranet and Internet Media</div>
+                <div class="pub-authors">Y. Kavurucu, T. Ensari</div>
+                <div class="pub-venue"><em>International Conference on Computer Science and Engineering</em>, Tekirdag, Turkey, October 20–23, 2016</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">57</div>
+            <div class="pub-content">
+                <div class="pub-title">Graph-based Concept Discovery in Multi Relational Data</div>
+                <div class="pub-authors">Y. Kavurucu, A. Mutlu, T. Ensari</div>
+                <div class="pub-venue"><em>International Conference on Cloud System and Big Data Engineering</em>, Noida, India, January 14–15, 2016</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">58</div>
+            <div class="pub-content">
+                <div class="pub-title">Evaluation of Machine Learning Algorithms for Automatic Modulation Recognition</div>
+                <div class="pub-authors">M. A. Hazar, N. Odabasioglu, T. Ensari, and Y. Kavurucu</div>
+                <div class="pub-venue"><em>International Conference on Neural Information Processing (ICONIP)</em>, Istanbul, Turkey, November 9–12, 2015</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">59</div>
+            <div class="pub-content">
+                <div class="pub-title">Deep Learning for Edge Detection</div>
+                <div class="pub-authors">C. Tiken, T. Ensari</div>
+                <div class="pub-venue"><em>International Symposium on Innovative Technologies in Engineering and Science (ISITES)</em>, Valencia, Spain, June 3–5, 2015</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">60</div>
+            <div class="pub-content">
+                <div class="pub-title">Hadoop Ecosystem and Its Analysis on Tweets</div>
+                <div class="pub-authors">C. Uzunoglu, T. Ensari, Y. Kavurucu</div>
+                <div class="pub-venue"><em>World Congress Technology, Innovation and Entrepreneurship</em>, Istanbul, Turkey, May 28–30, 2015</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">61</div>
+            <div class="pub-content">
+                <div class="pub-title">Passenger Notification System for Intelligent Transportation</div>
+                <div class="pub-authors">M. M. Tiryaki, A. Sertbas, T. Ensari</div>
+                <div class="pub-venue"><em>International Smart Grid Congress and Fair</em>, Istanbul, Turkey, April 29–30, 2015</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">62</div>
+            <div class="pub-content">
+                <div class="pub-title">Smart Advertisement Application Using Nonnegative Matrix Factorization</div>
+                <div class="pub-authors">D. Celik, T. Ensari, A. Sertbas</div>
+                <div class="pub-venue"><em>Scientific Congress on Electrical-Electronics, Computer and Biomedical Engineering</em>, Istanbul, May 26–28, 2014</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">63</div>
+            <div class="pub-content">
+                <div class="pub-title">Breast Cancer Diagnosis Using Nonnegative Matrix Factorization</div>
+                <div class="pub-authors">M. Kaya, O. Bektas, T. Ensari</div>
+                <div class="pub-venue"><em>Scientific Congress on Electrical-Electronics, Computer and Biomedical Engineering</em>, Istanbul, May 26–28, 2014</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">64</div>
+            <div class="pub-content">
+                <div class="pub-title">Nonnegative Matrix Factorization and Its Application to Pattern Analysis and Text Mining</div>
+                <div class="pub-authors">J. M. Zurada, T. Ensari, E. H. Asl, J. Chorowski</div>
+                <div class="pub-venue"><em>Federated Conference on Computer Science and Information Systems (FedCSIS)</em>, pp. 11–16, vol. 8, Krakow, Poland, September 8–11, 2013</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">65</div>
+            <div class="pub-content">
+                <div class="pub-title">Correntropy-based Document Clustering via Nonnegative Matrix Factorization</div>
+                <div class="pub-authors">T. Ensari, J. Chorowski, J. M. Zurada</div>
+                <div class="pub-venue"><em>International Conference on Artificial Neural Networks (ICANN)</em>, vol. 7553, pp. 347–354, Lausanne, Switzerland, September 11–14, 2012</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">66</div>
+            <div class="pub-content">
+                <div class="pub-title">Occluded Face Recognition Using Correntropy-based Nonnegative Matrix Factorization</div>
+                <div class="pub-authors">T. Ensari, J. Chorowski, J. M. Zurada</div>
+                <div class="pub-venue"><em>International Conference on Machine Learning and Applications (ICMLA)</em>, vol. 1, pp. 606–609, Boca Raton, Florida, December 12–15, 2012</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">67</div>
+            <div class="pub-content">
+                <div class="pub-title">Convergence Analysis of Hopfield Neural Networks</div>
+                <div class="pub-authors">T. Ensari, M. Erkan Yüksel</div>
+                <div class="pub-venue"><em>6th International Advanced Technologies Symposium (IATS)</em>, Elazığ, Turkey, May 16–18, 2011</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">68</div>
+            <div class="pub-content">
+                <div class="pub-title">Global Exponential Stability of Neural Networks with Multiple Time Varying Delays</div>
+                <div class="pub-authors">T. Ensari, S. Arik</div>
+                <div class="pub-venue"><em>15th Turkish Symposium on Artificial Intelligence and Neural Networks (TAINN)</em>, Akyaka, Mugla, Turkey, June 21–24, 2006</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">69</div>
+            <div class="pub-content">
+                <div class="pub-title">Stability Analysis of Neural Networks with Multiple Time Varying Delays</div>
+                <div class="pub-authors">T. Ensari, S. Arik</div>
+                <div class="pub-venue"><em>Turkish Symposium on Artificial Intelligence and Neural Networks (TAINN)</em>, Cesme, Izmir, Turkey, June 16–17, 2005</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">70</div>
+            <div class="pub-content">
+                <div class="pub-title">Global Asymptotical Stability of Neural Networks with Time Varying Delay</div>
+                <div class="pub-authors">T. Ensari, S. Arik</div>
+                <div class="pub-venue"><em>International Turkish Symposium on Artificial Intelligence and Neural Networks (TAINN)</em>, Foca, Izmir, Turkey, June 10–11, 2004</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">71</div>
+            <div class="pub-content">
+                <div class="pub-title">Global Stability of A Class of Neural Networks With Time Varying Delay</div>
+                <div class="pub-authors">T. Ensari, S. Arik</div>
+                <div class="pub-venue"><em>IEEE International Symposium on Circuits and Systems (ISCAS)</em>, Vancouver, Canada, May 23–26, 2004 <span class="badge badge-ieee">IEEE</span></div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">72</div>
+            <div class="pub-content">
+                <div class="pub-title">Speckle Reduction of Synthetic Aperture Radar Images Using Wavelet Filtering</div>
+                <div class="pub-authors">S. Kent, O. N. Ucan, T. Ensari</div>
+                <div class="pub-venue"><em>European Conference on Synthetic Aperture Radar (EUSAR)</em>, Ulm, Germany, May 25–27, 2004</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">73</div>
+            <div class="pub-content">
+                <div class="pub-title">Implementation of Cellular Neural Networks to Synthetic Aperture Radar Images</div>
+                <div class="pub-authors">S. Kent, O. N. Ucan, T. Ensari</div>
+                <div class="pub-venue"><em>EUSAR</em>, Ulm, Germany, May 25–27, 2004</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">74</div>
+            <div class="pub-content">
+                <div class="pub-title">Synthetic Aperture Radar Image Processing Using Cellular Neural Networks</div>
+                <div class="pub-authors">S. Kent, O. N. Ucan, T. Ensari</div>
+                <div class="pub-venue"><em>International Conference on Recent Advances in Space Technologies (RAST)</em>, Istanbul, Turkey, November 20–22, 2003</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">75</div>
+            <div class="pub-content">
+                <div class="pub-title">Cellular Neural Network Approach in Distributed Database Management Systems</div>
+                <div class="pub-authors">T. Ensari, O. N. Uçan, A. Karahoca</div>
+                <div class="pub-venue"><em>Engineering Science Young Researchers Congress (MBGAK)</em>, Istanbul, Turkey, February 17–20, 2003</div>
+            </div>
+        </div>
+
+        <div class="pub-card">
+            <div class="pub-number">76</div>
+            <div class="pub-content">
+                <div class="pub-title">Biomedical Image Processing Using Markov Random Fields and Cellular Neural Networks</div>
+                <div class="pub-authors">T. Ensari, N. Kilic, O. N. Ucan, A. Ozmen</div>
+                <div class="pub-venue"><em>Signal Processing and Communication Applications Conference (SIU)</em>, Koc University, Istanbul, Turkey, June 18–20, 2003</div>
+            </div>
+        </div>
+
+    </div><!-- /pub-list conferences -->
+
+</div><!-- /container -->
 
 </body>
 </html>
