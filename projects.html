@@ -3,8 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research Website</title>
-    <link rel="stylesheet" href="projectStyle.css">
+    <title>Projects – Tolga Ensari</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --primary: #1a3a5c;
+            --accent: #2e7d9f;
+            --accent-light: #e8f4f8;
+            --text: #222;
+            --text-muted: #555;
+            --border: #dce3ea;
+            --bg: #f5f7fa;
+            --card-bg: #ffffff;
+            --nav-bg: #1a3a5c;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ── NAV ── */
+        header {
+            background: var(--nav-bg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,.25);
+        }
+        nav {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            height: 58px;
+        }
+        .logo a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,.85);
+            text-decoration: none;
+            font-size: .82rem;
+            padding: 6px 10px;
+            border-radius: 4px;
+            transition: background .2s, color .2s;
+        }
+        .nav-links a:hover,
+        .nav-links a.active { background: rgba(255,255,255,.15); color: #fff; }
+
+        /* ── HERO ── */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: #fff;
+            text-align: center;
+            padding: 52px 24px 44px;
+        }
+        .hero h1 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+        .hero p  { font-size: 1rem; opacity: .85; }
+
+        /* ── STATS BAR ── */
+        .stats-bar {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .stat {
+            padding: 18px 36px;
+            text-align: center;
+            border-right: 1px solid var(--border);
+        }
+        .stat:last-child { border-right: none; }
+        .stat-number { font-size: 1.7rem; font-weight: 700; color: var(--accent); }
+        .stat-label  { font-size: .75rem; text-transform: uppercase; letter-spacing: .6px; color: var(--text-muted); }
+
+        /* ── LAYOUT ── */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        /* ── SECTION HEADINGS ── */
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 44px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+        }
+        .section-title i { color: var(--accent); font-size: 1.1rem; }
+
+        /* ── SPONSORS GRID ── */
+        .sponsors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 16px;
+        }
+        .sponsor-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px 16px;
+            text-align: center;
+            transition: box-shadow .2s, transform .2s;
+        }
+        .sponsor-card:hover {
+            box-shadow: 0 4px 16px rgba(46,125,159,.13);
+            transform: translateY(-2px);
+        }
+        .sponsor-card img {
+            width: 80px;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        .sponsor-card p { font-size: .76rem; color: var(--text-muted); line-height: 1.4; }
+
+        /* ── PROJECT CARDS ── */
+        .project-list { display: flex; flex-direction: column; gap: 14px; }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 20px 24px;
+            transition: box-shadow .2s, border-left-color .2s;
+        }
+        .project-card:hover {
+            box-shadow: 0 4px 16px rgba(46,125,159,.12);
+            border-left-color: var(--primary);
+        }
+
+        .project-title {
+            font-weight: 700;
+            font-size: .97rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .project-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 28px;
+            font-size: .83rem;
+            color: var(--text-muted);
+        }
+        .project-meta span { display: flex; align-items: flex-start; gap: 7px; }
+        .project-meta i { color: var(--accent); width: 14px; margin-top: 3px; flex-shrink: 0; }
+        .project-meta strong { color: var(--text); }
+        .project-meta a { color: var(--accent); text-decoration: none; word-break: break-all; }
+        .project-meta a:hover { text-decoration: underline; }
+
+        .badge-role {
+            display: inline-block;
+            font-size: .7rem;
+            font-weight: 700;
+            padding: 2px 9px;
+            border-radius: 20px;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+        .badge-role.pi   { background: #d4edda; color: #155724; }
+        .badge-role.copi { background: #cfe2ff; color: #084298; }
+        .badge-role.res  { background: #fff3cd; color: #856404; }
+        .badge-role.adv  { background: #f3e8ff; color: #5a0080; }
+
+        /* ── INDUSTRY ADVISOR GRID ── */
+        .industry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 12px;
+        }
+        .industry-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 14px 18px;
+            font-size: .88rem;
+            font-weight: 500;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: box-shadow .2s;
+        }
+        .industry-item:hover { box-shadow: 0 3px 12px rgba(46,125,159,.12); }
+        .industry-item i { color: var(--accent); font-size: .9rem; flex-shrink: 0; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 1.5rem; }
+            .stat { padding: 14px 18px; }
+            .sponsors-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+        }
+    </style>
 </head>
 <body>
 
@@ -15,7 +232,7 @@
             <li><a href="home.html">Home</a></li>
             <li><a href="news.html">News</a></li>
             <li><a href="publications.html">Publications</a></li>
-            <li><a href="projects.html">Projects</a></li>
+            <li><a href="projects.html" class="active">Projects</a></li>
             <li><a href="people.html">People/Research Group</a></li>
             <li><a href="activities.html">Activities</a></li>
             <li><a href="join.html">Join us!</a></li>
@@ -25,224 +242,254 @@
     </nav>
 </header>
 
-<main>
-    <section class="left-section">
-        <div class="profile">
-            <img src="Dr.ensari.jpeg" alt="Your Photo">
-            <div class="profile-info">
-                <p class="name" style="display: inline-block; text-align: left;">Tolga Ensari, PhD</p>
-                <p class="designation">Assistant Professor of Computer Science</p>
-                <p>Arkansas Tech University</p>
-                <p>Russellville, AR</p></br>
-                <div style ="text-align: center;">
-                    <div class="contact-info" style="display: inline-block; text-align: left;">
-                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-                        <p><i class="fa fa-phone"></i> +1-479-356-2161</p></br>
-                        <p><i class="fa fa-envelope"></i> <a href="mailto:tensari@atu.edu">tensari@atu.edu</a></p></br>
-                        <p><i class="fas fa-user-graduate"></i> <a href="https://scholar.google.com/citations?user=o-TS7FsAAAAJ&hl=en&oi=ao">Google Scholar</a></p></br>
-                        <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/tolga-ensari-814ba527">LinkedIn</a></p></br>
-                        <p><i class="fab fa-orcid"></i> <a href="https://orcid.org/0000-0003-0896-3058">ORCID</a></p></br>
-                        <p><i class="fab fa-github"></i> <a href="https://ensaritolga.github.io/Portfolio/">GitHub</a></p></br></br>
-                    </div>
-                    <div style="text-align: center;">
-                        <p style="margin-left: -50px;">
-                            Address: <br>
-                            Arkansas Tech University<br>
-                            Dept. of Engineering and Computing Sciences<br>
-                            1811 N Boulder Ave, Corley Hall, Room 241<br>
-                            Russellville, Arkansas 72801, USA</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="right-section">
-        <h2>Our Research Project Sponsors:</h2> </br>
-        <div class="sponsors">
-            <div class="sponsor">
-                <img src="NSF.png" alt="National Science Foundation" />
-                <p>National Science Foundation (NSF)</p>
-            </div>
-            <div class="sponsor">
-                <img src="nasa.png" alt="National Aeronautics and Space Administration" />
-                <p>National Aeronautics and Space Administration (NASA)</p>
-            </div>
-            <div class="sponsor">
-                <img src="atu.jpg" alt="Arkansas Tech University" />
-                <p>Arkansas Tech University (ATU) Office of Research</p>
-            </div>
-            <div class="sponsor">
-                <img src="uams.png" alt="University of Arkansas Medical Sciences" />
-                <p>University of Arkansas Medical Sciences (UAMS)</p>
-            </div>
-            <div class="sponsor">
-                <img src="tubitac.png" alt="Scientific and Technological Research Council of Turkey" />
-                <p>Scientific and Technological Research Council of Turkey (TUBITAC)</p>
-            </div>
-            <div class="sponsor">
-                <img src="itea.png" alt="ITEA4 Program" />
-                <p>ITEA4 Program (Eureka RD&I Cluster on Software Innovation)</p>
-            </div>
-            <div class="sponsor">
-                <img src="istanbul.png" alt="Istanbul University-Cerrahpasa" />
-                <p>Istanbul University-Cerrahpasa (IUC)</p>
-            </div>
-            <div class="sponsor">
-                <img src="dart.png" alt="Data Analytics that are Robust and Trusted" />
-                <p>Data Analytics that are Robust and Trusted (DART)</p>
-            </div>
-            <div class="sponsor">
-                <img src="councilofhighereducation.png" alt="Council of Higher Education" />
-                <p>Council of Higher Education</p>
+<div class="hero">
+    <h1>Research Projects</h1>
+    <p>Tolga Ensari, PhD &nbsp;·&nbsp; Arkansas Tech University</p>
+</div>
+
+<div class="stats-bar">
+    <div class="stat"><div class="stat-number">12</div><div class="stat-label">Funded Projects</div></div>
+    <div class="stat"><div class="stat-number">7</div><div class="stat-label">Industry R&amp;D Projects</div></div>
+    <div class="stat"><div class="stat-number">14</div><div class="stat-label">Industry Advisorships</div></div>
+    <div class="stat"><div class="stat-number">9</div><div class="stat-label">Funding Partners</div></div>
+</div>
+
+<div class="container">
+
+    <!-- ════════════════ SPONSORS ════════════════ -->
+    <div class="section-title"><i class="fas fa-handshake"></i> Research Project Sponsors</div>
+    <div class="sponsors-grid">
+        <div class="sponsor-card"><img src="NSF.png" alt="NSF"><p>National Science Foundation (NSF)</p></div>
+        <div class="sponsor-card"><img src="nasa.png" alt="NASA"><p>National Aeronautics and Space Administration (NASA)</p></div>
+        <div class="sponsor-card"><img src="atu.jpg" alt="ATU"><p>Arkansas Tech University (ATU) Office of Research</p></div>
+        <div class="sponsor-card"><img src="uams.png" alt="UAMS"><p>University of Arkansas Medical Sciences (UAMS)</p></div>
+        <div class="sponsor-card"><img src="tubitac.png" alt="TUBITAK"><p>Scientific and Technological Research Council of Turkey (TUBITAK)</p></div>
+        <div class="sponsor-card"><img src="itea.png" alt="ITEA4"><p>ITEA4 Program (Eureka R&amp;D&amp;I Cluster on Software Innovation)</p></div>
+        <div class="sponsor-card"><img src="istanbul.png" alt="IUC"><p>Istanbul University-Cerrahpasa (IUC)</p></div>
+        <div class="sponsor-card"><img src="dart.png" alt="DART"><p>Data Analytics that are Robust and Trusted (DART)</p></div>
+        <div class="sponsor-card"><img src="councilofhighereducation.png" alt="CHE"><p>Council of Higher Education</p></div>
+    </div>
+
+
+    <!-- ════════════════ FUNDED RESEARCH PROJECTS ════════════════ -->
+    <div class="section-title"><i class="fas fa-flask"></i> Funded Research Projects</div>
+    <div class="project-list">
+
+        <div class="project-card">
+            <div class="project-title">Combined Machine Learning and Calphad Approach to Design Multi-Component High-Temperature Shape Memory Alloys</div>
+            <div class="project-meta">
+                <span><i class="fas fa-building"></i><div><strong>Funder:</strong> NASA, Arkansas Space Grant Consortium</div></span>
+                <span><i class="fas fa-user-tie"></i><div><strong>Role:</strong> Co-PI <span class="badge-role copi">Co-PI</span></div></span>
+                <span><i class="far fa-calendar-alt"></i><div><strong>Period:</strong> 2023–2024</div></span>
             </div>
         </div>
 
-        <h2>Funded Research Projects:</h2></br>
-        <ul>
-            <li>
-                <strong>Project title:</strong> Combined Machine Learning and Calphad Approach to Design Multi-Component High-Temperature Shape Memory Alloys <br>
-                <strong>Funded by:</strong> National Aeronautics and Space Administration (NASA), Arkansas Space Grant Consortium <br>
-                <strong>Duty and date:</strong> CoPI, 2023-2024
-            </li></br>
-            <li>
-                <strong>Project title:</strong> Programming Sequence Improvement Program (PSIP) <br>
-                <strong>Funded by:</strong> Arkansas Tech University (ATU), Office of Research/Innovation Grant Project <br>
-                <strong>Duty and date:</strong> CoPI, 2022-2023
-            </li></br>
-            <li>
-                <strong>Project title:</strong> Development of Interdisciplinary Research Collaborative to Provide Datasets in Support of Education Research in Data Science<br>
-                <strong>Funded by:</strong> National Science Foundation (NSF) <br>
-                <strong>Duty and date:</strong> Researcher, 2022-2023
-            </li></br>
-            <li>
-                <strong>Project title:</strong> Summer Undergraduate Research Experience (SURE) Program at Arkansas Tech University<br>
-                <strong>Funded by:</strong> National Science Foundation (NSF), Data Analytics That Are Robust and Trusted (DART)<br>
-                <strong>Duty and date:</strong> CoPI, 2021
-            </li></br>
-            <li>
-                <strong>Project title:</strong> Data Analytics that are Robust and Trusted (DART) <br>
-                <strong>Funded by:</strong> National Science Foundation (NSF) <br>
-                <strong>Duty and date:</strong> Researcher in the Data Science Education team, 2021-2025
-            </li></br>
-            <li>
-                <strong>Project title:</strong> Automatic Interface Code Generator from Visual Design Using Machine Learning <br>
-                <strong>Funded by:</strong> TUBITAK 1505, Scientific and Technical Research Council of Turkey<br>
-                <strong>Duty and date:</strong> PI, 2019-2021
-            </li></br>
-            <li>
-                <strong>Project title:</strong> Smart Digital Marketing and Business Intelligence Development <br>
-                <strong>Funded by:</strong> TUBITAK 2244 Program, Scientific and Technical Research Council of Turkey <br>
-                <strong>Duty and date:</strong> PI, 2020-2025
-            </li></br>
-            <li>
-                <strong>Project title:</strong> Detection and Classification of Lung Cancer with Machine Learning Methods <br>
-                <strong>Funded by:</strong> Council of Higher Education - International Mevlana Project <br>
-                <strong>Duty and date:</strong> PI, 2018-2019
-            </li></br>
-            <li>
-                <strong>Project title:</strong> Investigation of Mitochondrial DNA Variants with Data Mining in Oxidative Phosphorylation System Diseases <br>
-                <strong>Funded by:</strong> Istanbul University, Scientific Research Projects Unit <br>
-                <strong>Duty and date:</strong> CoPI, 2018-2020
-            </li></br>
-            <li>
-                <strong>Project title:</strong> Nonnegative Matrix Factorization Applications <br>
-                <strong>Funded by:</strong> Istanbul University, Scientific Research Projects Unit<br>
-                <strong>Duty and date:</strong> PI, 2014-2015
-            </li></br>
-            <li>
-                <strong>Project title:</strong> Stability Analysis of Neural Networks with Time Varying Delays and Their Simulations <br>
-                <strong>Funded by:</strong> Istanbul University, Scientific Research Projects Unit<br>
-                <strong>Duty and date:</strong> PI, 2011
-            </li></br>
-            <li>
-                <strong>Project title:</strong> New Analytical Methods for Stable Cellular Neural Networks Template Design and Signal and Image Processing Applications of These Templates with Analog CNN - Computer <br>
-                <strong>Funded by:</strong> TUBITAK, Scientific and Technical Research Council of Turkey <br>
-                <strong>Duty and date:</strong> Researcher, 2007-2009
-            </li>
-        </ul>
+        <div class="project-card">
+            <div class="project-title">Programming Sequence Improvement Program (PSIP)</div>
+            <div class="project-meta">
+                <span><i class="fas fa-building"></i><div><strong>Funder:</strong> Arkansas Tech University (ATU), Office of Research / Innovation Grant Project</div></span>
+                <span><i class="fas fa-user-tie"></i><div><strong>Role:</strong> Co-PI <span class="badge-role copi">Co-PI</span></div></span>
+                <span><i class="far fa-calendar-alt"></i><div><strong>Period:</strong> 2022–2023</div></span>
+            </div>
+        </div>
 
-        </br>
-        <h2>Funded International Industry Research Projects:</h2></br>
-        <ul>
-            <li>
-                <strong>Project title:</strong> Operational Excellence by Integrating Learned information into Actionable Expertise (OXILATE)<br>
-                <strong>Funded by:</strong> ITEA Program<br>
-                <strong>Duration:</strong> 2020-2023 (3 years)<br>
-                <strong>Duty:</strong> Scientific/Academic Advisor at R&amp;D Department<br>
-                <strong>Partners:</strong> Belgium, Finland, Spain, Turkey<br>
-                <strong>Link:</strong> <a href="https://itea4.org/project/oxilate.html">https://itea4.org/project/oxilate.html</a>
-            </li></br>
-            <li>
-                <strong>Project title:</strong> Profiling and Analysis Platform Using Deep Learning (PAPUD)<br>
-                <strong>Funded by:</strong> ITEA Program<br>
-                <strong>Duration:</strong> 2018-2020 (2 years)<br>
-                <strong>Duty:</strong> Scientific/Academic Advisor at R&amp;D Department<br>
-                <strong>Partners:</strong> Belgium, France, Romania, Spain, Turkey<br>
-                <strong>Link:</strong> <a href="https://itea4.org/project/papud.html">https://itea4.org/project/papud.html</a>
-            </li></br>
-            <li>
-                <strong>Project title:</strong> Environmental Sensing to Act for a Better quality of Life: Smart Health (ESTABLISH)<br>
-                <strong>Funded by:</strong> ITEA Program<br>
-                <strong>Duration:</strong> 2016-2019 (3 years)<br>
-                <strong>Duty:</strong> Scientific/Academic Advisor at R&amp;D Department<br>
-                <strong>Partners:</strong> Czech Republic, Finland, Korea, Republic of, Romania, Spain, Turkey<br>
-                <strong>Link:</strong> <a href="https://itea4.org/project/establish.html">https://itea4.org/project/establish.html</a>
-            </li></br>
-            <li>
-                <strong>Project title:</strong> Personal Data Protection Framework for IoT (PARFAIT)<br>
-                <strong>Funded by:</strong> ITEA Program<br>
-                <strong>Duration:</strong> 2018-2020 (2 years)<br>
-                <strong>Duty:</strong> Scientific/Academic Advisor at R&amp;D Department<br>
-                <strong>Partners:</strong> France, Romania, Turkey<br>
-                <strong>Link:</strong> <a href="https://itea4.org/project/parfait.html">https://itea4.org/project/parfait.html</a>
-            </li></br>
-            <li>
-                <strong>Project title:</strong> Social Media and Digital Interaction Intelligence (SOMEDI)<br>
-                <strong>Funded by:</strong> ITEA Program<br>
-                <strong>Duration:</strong> 2016-2019 (3 years)<br>
-                <strong>Duty:</strong> Scientific/Academic Advisor at R&amp;D Department<br>
-                <strong>Partners:</strong> Romania, Spain, Turkey<br>
-                <strong>Link:</strong> <a href="https://itea4.org/project/somedi.html">https://itea4.org/project/somedi.html</a>
-            </li></br>
-            <li>
-                <strong>Project title:</strong> Measuring Software Engineering (MEASURE)<br>
-                <strong>Funded by:</strong> ITEA Program<br>
-                <strong>Duration:</strong> 2015-2019 (4 years)<br>
-                <strong>Duty:</strong> Scientific/Academic Advisor at R&amp;D Department<br>
-                <strong>Partners:</strong> France, Romania, Netherlands, Turkey<br>
-                <strong>Link:</strong> <a href="https://itea4.org/project/measure.html">https://itea4.org/project/measure.html</a>
-            </li></br>
-            <li>
-                <strong>Project title:</strong> Social Local Mobile Indoor Shopping Experience (SOLOMON)<br>
-                <strong>Funded by:</strong> ITEA Program<br>
-                <strong>Duration:</strong> 2016-2020 (4 years)<br>
-                <strong>Duty:</strong> Scientific/Academic Advisor at R&amp;D Department<br>
-                <strong>Partners:</strong> Austria, Romania, Spain, Turkey<br>
-                <strong>Link:</strong> <a href="https://itea4.org/project/solomon.html">https://itea4.org/project/solomon.html</a>
-            </li>
-        </ul>
+        <div class="project-card">
+            <div class="project-title">Development of Interdisciplinary Research Collaborative to Provide Datasets in Support of Education Research in Data Science</div>
+            <div class="project-meta">
+                <span><i class="fas fa-building"></i><div><strong>Funder:</strong> National Science Foundation (NSF)</div></span>
+                <span><i class="fas fa-user-tie"></i><div><strong>Role:</strong> Researcher <span class="badge-role res">Researcher</span></div></span>
+                <span><i class="far fa-calendar-alt"></i><div><strong>Period:</strong> 2022–2023</div></span>
+            </div>
+        </div>
 
-        </br>
-        <h2>Scientific Advisor of the Commercial Companies' R&amp;D Department (Industry):</h2></br>
-        <ul>
-            <li>Albert Solino Software &amp; Consultancy Inc.</li>
-            <li>Veri Software Inc.</li>
-            <li>MIRSIS Information Technologies Inc.</li>
-            <li>Cloud Factory Software Inc.</li>
-            <li>MAESTRO Software Inc.</li>
-            <li>MNM Technology Inc.</li>
-            <li>BORAN Software Inc.</li>
-            <li>LUDENS Financial Technologies Inc.</li>
-            <li>HUAWEI</li>
-            <li>DGR Information Technologies Inc.</li>
-            <li>OBLOGI Social Media IT Inc.</li>
-            <li>INFOVAS Internet and Telecommunication Inc.</li>
-            <li>SEMANTIK IT Inc.</li>
-            <li>TURKGEN IT Inc.</li>
-        </ul>
-    </section>
+        <div class="project-card">
+            <div class="project-title">Summer Undergraduate Research Experience (SURE) Program at Arkansas Tech University</div>
+            <div class="project-meta">
+                <span><i class="fas fa-building"></i><div><strong>Funder:</strong> NSF, Data Analytics That Are Robust and Trusted (DART)</div></span>
+                <span><i class="fas fa-user-tie"></i><div><strong>Role:</strong> Co-PI <span class="badge-role copi">Co-PI</span></div></span>
+                <span><i class="far fa-calendar-alt"></i><div><strong>Period:</strong> 2021</div></span>
+            </div>
+        </div>
 
-</main>
+        <div class="project-card">
+            <div class="project-title">Data Analytics that are Robust and Trusted (DART)</div>
+            <div class="project-meta">
+                <span><i class="fas fa-building"></i><div><strong>Funder:</strong> National Science Foundation (NSF)</div></span>
+                <span><i class="fas fa-user-tie"></i><div><strong>Role:</strong> Researcher – Data Science Education Team <span class="badge-role res">Researcher</span></div></span>
+                <span><i class="far fa-calendar-alt"></i><div><strong>Period:</strong> 2021–2025</div></span>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-title">Automatic Interface Code Generator from Visual Design Using Machine Learning</div>
+            <div class="project-meta">
+                <span><i class="fas fa-building"></i><div><strong>Funder:</strong> TUBITAK 1505, Scientific and Technical Research Council of Turkey</div></span>
+                <span><i class="fas fa-user-tie"></i><div><strong>Role:</strong> PI <span class="badge-role pi">PI</span></div></span>
+                <span><i class="far fa-calendar-alt"></i><div><strong>Period:</strong> 2019–2021</div></span>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-title">Smart Digital Marketing and Business Intelligence Development</div>
+            <div class="project-meta">
+                <span><i class="fas fa-building"></i><div><strong>Funder:</strong> TUBITAK 2244 Program, Scientific and Technical Research Council of Turkey</div></span>
+                <span><i class="fas fa-user-tie"></i><div><strong>Role:</strong> PI <span class="badge-role pi">PI</span></div></span>
+                <span><i class="far fa-calendar-alt"></i><div><strong>Period:</strong> 2020–2025</div></span>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-title">Detection and Classification of Lung Cancer with Machine Learning Methods</div>
+            <div class="project-meta">
+                <span><i class="fas fa-building"></i><div><strong>Funder:</strong> Council of Higher Education – International Mevlana Project</div></span>
+                <span><i class="fas fa-user-tie"></i><div><strong>Role:</strong> PI <span class="badge-role pi">PI</span></div></span>
+                <span><i class="far fa-calendar-alt"></i><div><strong>Period:</strong> 2018–2019</div></span>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-title">Investigation of Mitochondrial DNA Variants with Data Mining in Oxidative Phosphorylation System Diseases</div>
+            <div class="project-meta">
+                <span><i class="fas fa-building"></i><div><strong>Funder:</strong> Istanbul University, Scientific Research Projects Unit</div></span>
+                <span><i class="fas fa-user-tie"></i><div><strong>Role:</strong> Co-PI <span class="badge-role copi">Co-PI</span></div></span>
+                <span><i class="far fa-calendar-alt"></i><div><strong>Period:</strong> 2018–2020</div></span>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-title">Nonnegative Matrix Factorization Applications</div>
+            <div class="project-meta">
+                <span><i class="fas fa-building"></i><div><strong>Funder:</strong> Istanbul University, Scientific Research Projects Unit</div></span>
+                <span><i class="fas fa-user-tie"></i><div><strong>Role:</strong> PI <span class="badge-role pi">PI</span></div></span>
+                <span><i class="far fa-calendar-alt"></i><div><strong>Period:</strong> 2014–2015</div></span>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-title">Stability Analysis of Neural Networks with Time Varying Delays and Their Simulations</div>
+            <div class="project-meta">
+                <span><i class="fas fa-building"></i><div><strong>Funder:</strong> Istanbul University, Scientific Research Projects Unit</div></span>
+                <span><i class="fas fa-user-tie"></i><div><strong>Role:</strong> PI <span class="badge-role pi">PI</span></div></span>
+                <span><i class="far fa-calendar-alt"></i><div><strong>Period:</strong> 2011</div></span>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-title">New Analytical Methods for Stable Cellular Neural Networks Template Design and Signal and Image Processing Applications of These Templates with Analog CNN-Computer</div>
+            <div class="project-meta">
+                <span><i class="fas fa-building"></i><div><strong>Funder:</strong> TUBITAK, Scientific and Technical Research Council of Turkey</div></span>
+                <span><i class="fas fa-user-tie"></i><div><strong>Role:</strong> Researcher <span class="badge-role res">Researcher</span></div></span>
+                <span><i class="far fa-calendar-alt"></i><div><strong>Period:</strong> 2007–2009</div></span>
+            </div>
+        </div>
+
+    </div><!-- /funded research -->
+
+
+    <!-- ════════════════ INTERNATIONAL INDUSTRY R&D ════════════════ -->
+    <div class="section-title"><i class="fas fa-globe"></i> Funded International Industry Research / R&amp;D Projects</div>
+    <div class="project-list">
+
+        <div class="project-card">
+            <div class="project-title">Operational Excellence by Integrating Learned information into Actionable Expertise (OXILATE)</div>
+            <div class="project-meta">
+                <span><i class="fas fa-building"></i><div><strong>Funder:</strong> ITEA Program</div></span>
+                <span><i class="fas fa-user-tie"></i><div><strong>Role:</strong> Scientific / Academic Advisor at R&amp;D Department <span class="badge-role adv">Advisor</span></div></span>
+                <span><i class="far fa-calendar-alt"></i><div><strong>Duration:</strong> 2020–2023 (3 years)</div></span>
+                <span><i class="fas fa-flag"></i><div><strong>Partners:</strong> Belgium, Finland, Spain, Turkey</div></span>
+                <span><i class="fas fa-link"></i><div><a href="https://itea4.org/project/oxilate.html" target="_blank">itea4.org/project/oxilate.html</a></div></span>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-title">Profiling and Analysis Platform Using Deep Learning (PAPUD)</div>
+            <div class="project-meta">
+                <span><i class="fas fa-building"></i><div><strong>Funder:</strong> ITEA Program</div></span>
+                <span><i class="fas fa-user-tie"></i><div><strong>Role:</strong> Scientific / Academic Advisor at R&amp;D Department <span class="badge-role adv">Advisor</span></div></span>
+                <span><i class="far fa-calendar-alt"></i><div><strong>Duration:</strong> 2018–2020 (2 years)</div></span>
+                <span><i class="fas fa-flag"></i><div><strong>Partners:</strong> Belgium, France, Romania, Spain, Turkey</div></span>
+                <span><i class="fas fa-link"></i><div><a href="https://itea4.org/project/papud.html" target="_blank">itea4.org/project/papud.html</a></div></span>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-title">Environmental Sensing to Act for a Better Quality of Life: Smart Health (ESTABLISH)</div>
+            <div class="project-meta">
+                <span><i class="fas fa-building"></i><div><strong>Funder:</strong> ITEA Program</div></span>
+                <span><i class="fas fa-user-tie"></i><div><strong>Role:</strong> Scientific / Academic Advisor at R&amp;D Department <span class="badge-role adv">Advisor</span></div></span>
+                <span><i class="far fa-calendar-alt"></i><div><strong>Duration:</strong> 2016–2019 (3 years)</div></span>
+                <span><i class="fas fa-flag"></i><div><strong>Partners:</strong> Czech Republic, Finland, Korea, Romania, Spain, Turkey</div></span>
+                <span><i class="fas fa-link"></i><div><a href="https://itea4.org/project/establish.html" target="_blank">itea4.org/project/establish.html</a></div></span>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-title">Personal Data Protection Framework for IoT (PARFAIT)</div>
+            <div class="project-meta">
+                <span><i class="fas fa-building"></i><div><strong>Funder:</strong> ITEA Program</div></span>
+                <span><i class="fas fa-user-tie"></i><div><strong>Role:</strong> Scientific / Academic Advisor at R&amp;D Department <span class="badge-role adv">Advisor</span></div></span>
+                <span><i class="far fa-calendar-alt"></i><div><strong>Duration:</strong> 2018–2020 (2 years)</div></span>
+                <span><i class="fas fa-flag"></i><div><strong>Partners:</strong> France, Romania, Turkey</div></span>
+                <span><i class="fas fa-link"></i><div><a href="https://itea4.org/project/parfait.html" target="_blank">itea4.org/project/parfait.html</a></div></span>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-title">Social Media and Digital Interaction Intelligence (SOMEDI)</div>
+            <div class="project-meta">
+                <span><i class="fas fa-building"></i><div><strong>Funder:</strong> ITEA Program</div></span>
+                <span><i class="fas fa-user-tie"></i><div><strong>Role:</strong> Scientific / Academic Advisor at R&amp;D Department <span class="badge-role adv">Advisor</span></div></span>
+                <span><i class="far fa-calendar-alt"></i><div><strong>Duration:</strong> 2016–2019 (3 years)</div></span>
+                <span><i class="fas fa-flag"></i><div><strong>Partners:</strong> Romania, Spain, Turkey</div></span>
+                <span><i class="fas fa-link"></i><div><a href="https://itea4.org/project/somedi.html" target="_blank">itea4.org/project/somedi.html</a></div></span>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-title">Measuring Software Engineering (MEASURE)</div>
+            <div class="project-meta">
+                <span><i class="fas fa-building"></i><div><strong>Funder:</strong> ITEA Program</div></span>
+                <span><i class="fas fa-user-tie"></i><div><strong>Role:</strong> Scientific / Academic Advisor at R&amp;D Department <span class="badge-role adv">Advisor</span></div></span>
+                <span><i class="far fa-calendar-alt"></i><div><strong>Duration:</strong> 2015–2019 (4 years)</div></span>
+                <span><i class="fas fa-flag"></i><div><strong>Partners:</strong> France, Romania, Netherlands, Turkey</div></span>
+                <span><i class="fas fa-link"></i><div><a href="https://itea4.org/project/measure.html" target="_blank">itea4.org/project/measure.html</a></div></span>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-title">Social Local Mobile Indoor Shopping Experience (SOLOMON)</div>
+            <div class="project-meta">
+                <span><i class="fas fa-building"></i><div><strong>Funder:</strong> ITEA Program</div></span>
+                <span><i class="fas fa-user-tie"></i><div><strong>Role:</strong> Scientific / Academic Advisor at R&amp;D Department <span class="badge-role adv">Advisor</span></div></span>
+                <span><i class="far fa-calendar-alt"></i><div><strong>Duration:</strong> 2016–2020 (4 years)</div></span>
+                <span><i class="fas fa-flag"></i><div><strong>Partners:</strong> Austria, Romania, Spain, Turkey</div></span>
+                <span><i class="fas fa-link"></i><div><a href="https://itea4.org/project/solomon.html" target="_blank">itea4.org/project/solomon.html</a></div></span>
+            </div>
+        </div>
+
+    </div><!-- /industry R&D -->
+
+
+    <!-- ════════════════ INDUSTRY ADVISOR ════════════════ -->
+    <div class="section-title"><i class="fas fa-briefcase"></i> Scientific Advisor on R&amp;D Projects for Commercial Companies</div>
+    <div class="industry-grid">
+        <div class="industry-item"><i class="fas fa-building"></i> Albert Solino Software &amp; Consultancy Inc.</div>
+        <div class="industry-item"><i class="fas fa-building"></i> Veri Software Inc.</div>
+        <div class="industry-item"><i class="fas fa-building"></i> MIRSIS Information Technologies Inc.</div>
+        <div class="industry-item"><i class="fas fa-building"></i> Cloud Factory Software Inc.</div>
+        <div class="industry-item"><i class="fas fa-building"></i> MAESTRO Software Inc.</div>
+        <div class="industry-item"><i class="fas fa-building"></i> MNM Technology Inc.</div>
+        <div class="industry-item"><i class="fas fa-building"></i> BORAN Software Inc.</div>
+        <div class="industry-item"><i class="fas fa-building"></i> LUDENS Financial Technologies Inc.</div>
+        <div class="industry-item"><i class="fas fa-building"></i> HUAWEI</div>
+        <div class="industry-item"><i class="fas fa-building"></i> DGR Information Technologies Inc.</div>
+        <div class="industry-item"><i class="fas fa-building"></i> OBLOGI Social Media IT Inc.</div>
+        <div class="industry-item"><i class="fas fa-building"></i> INFOVAS Internet and Telecommunication Inc.</div>
+        <div class="industry-item"><i class="fas fa-building"></i> SEMANTIK IT Inc.</div>
+        <div class="industry-item"><i class="fas fa-building"></i> TURKGEN IT Inc.</div>
+    </div>
+
+</div><!-- /container -->
 
 </body>
 </html>
