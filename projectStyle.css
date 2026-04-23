@@ -3,83 +3,70 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
     font-family: Arial, sans-serif;
     background-color: #ffffff;
 }
-
 header {
     background-color: transparent;
     position: sticky;
     top: 0;
     z-index: 999;
-    border-bottom: 1px solid #D9DDDC; /* Change color of navigation bar line */
+    border-bottom: 1px solid #cccccc;
 }
-
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    width: 100%; /* Set width to 100% */
+    width: 100%;
 }
-
 .logo a {
     text-decoration: none;
-    color: #666462; /* Change color of logo */
+    color: #222222;
     font-weight: bold;
     font-size: 1.2em;
-    transition: color 0.3s; /* Add transition for color change */
+    transition: color 0.3s;
 }
-
 .nav-links {
     list-style: none;
     display: flex;
 }
-
 .nav-links li {
     margin-right: 20px;
 }
-
 .nav-links li a {
     text-decoration: none;
-    color: #666462; 
+    color: #222222;
     position: relative;
-    padding: 0 10px; /* Add padding to create space between links */
-    transition: color 0.3s; /* Add transition for color change */
-    display: inline-block; /* Ensure anchor elements only take necessary space */
+    padding: 0 10px;
+    transition: color 0.3s;
+    display: inline-block;
 }
-
 .nav-links li a:hover {
-    color: #318CE7; 
+    color: #000000;
 }
-
 .nav-links li a::after {
     content: '';
     position: absolute;
     width: 0%;
     height: 2px;
-    background-color: #318CE7; /* Change color of animation line to light blue */
+    background-color: #000000;
     bottom: -6px;
     left: 0;
     transition: 0.4s;
     display: block;
 }
-
 .nav-links li a:hover::after {
     width: 100%;
 }
-
 main {
     display: flex;
     padding: 20px;
 }
-
 .left-section {
     flex: 1;
 }
-
 .profile img {
     max-width: 75%;
     border-radius: 50%;
@@ -89,50 +76,41 @@ main {
     margin-right: auto;
     width: 60%;
 }
-
 .social-links {
     display: flex;
     gap: 10px;
 }
-
 .right-section {
     flex: 3;
     overflow-y: auto;
     padding-left: 20px;
 }
-
 .profile-info {
-    text-align: center; /* Center align the profile information */
+    text-align: center;
 }
-
 .profile-info .name {
     font-weight: bold;
 }
-
 .profile-info .designation {
     font-style: italic;
-    color: #666462; /* Adjust color as needed */
+    color: #555555;
 }
-
 .sponsors {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     padding: 20px 0;
 }
-
 .sponsor {
     text-align: center;
     margin: 10px;
-    width: 160px; /* Adjust based on your layout and image sizes */
+    width: 160px;
 }
-
 .sponsor img {
-    width: 100%; /* Makes the image responsive */
+    width: 100%;
     height: auto;
     margin-bottom: 10px;
 }
-
 .sponsor p {
     margin-top: 5px;
 }
@@ -140,47 +118,38 @@ main {
     list-style-type: none;
     padding-left: 0;
 }
-
 .right-section li {
     margin-bottom: 10px;
 }
 .right-section li:before {
-    content: "🔬"; /* Adds a paper icon before each project */
+    content: "🔬";
     margin-right: 5px;
 }
-
 .right-section h3 {
     margin-top: 20px;
 }
-
-
 /* Media queries for tablet and mobile */
 @media only screen and (max-width: 768px) {
     nav {
         flex-direction: column;
         align-items: center;
     }
-
     .nav-links {
         margin-top: 10px;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
-
     .nav-links li {
         margin-right: 0;
         margin-bottom: 10px;
-        display: block; /* Ensure display block for flex items */
+        display: block;
     }
-
     .right-section {
         padding-left: 0;
     }
-
     .profile img {
         max-width: 100%;
         width: 80%;
     }
-    
 }
